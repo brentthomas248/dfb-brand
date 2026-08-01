@@ -389,6 +389,13 @@ figcaption{
   border:1px solid var(--edge);
   background:transparent;
 }
+/* three-foot seams, so the box reads as a floor plan and not an empty frame.
+   No finish colours here on purpose — the only filled shape is the graphic. */
+.wrapfloor .v,.wrapfloor .h{position:absolute;background:var(--seam);}
+.wrapfloor .v{top:0;bottom:0;width:1px;left:var(--o);}
+.wrapfloor .h{left:0;right:0;height:1px;top:var(--o);}
+.p1{--o:12.5%}.p2{--o:25%}.p3{--o:37.5%}.p4{--o:50%}
+.p5{--o:62.5%}.p6{--o:75%}.p7{--o:87.5%}
 .wrapgfx{
   position:absolute;
   left:50%;top:50%;
@@ -781,15 +788,15 @@ select{
 
         <div class="wraps">
           <figure>
-            <div class="wrapfloor" aria-hidden="true"><div class="wrapgfx g34"></div></div>
+            <div class="wrapfloor" aria-hidden="true"><span class="v p1"></span><span class="v p2"></span><span class="v p3"></span><span class="v p4"></span><span class="v p5"></span><span class="v p6"></span><span class="v p7"></span><span class="h p1"></span><span class="h p2"></span><span class="h p3"></span><span class="h p4"></span><span class="h p5"></span><span class="h p6"></span><span class="h p7"></span><div class="wrapgfx g34"></div></div>
             <figcaption>3 × 4 ft graphic · shown on a 24 × 24 ft floor</figcaption>
           </figure>
           <figure>
-            <div class="wrapfloor" aria-hidden="true"><div class="wrapgfx g56"></div></div>
+            <div class="wrapfloor" aria-hidden="true"><span class="v p1"></span><span class="v p2"></span><span class="v p3"></span><span class="v p4"></span><span class="v p5"></span><span class="v p6"></span><span class="v p7"></span><span class="h p1"></span><span class="h p2"></span><span class="h p3"></span><span class="h p4"></span><span class="h p5"></span><span class="h p6"></span><span class="h p7"></span><div class="wrapgfx g56"></div></div>
             <figcaption>5 × 6 ft graphic · shown on a 24 × 24 ft floor</figcaption>
           </figure>
           <figure>
-            <div class="wrapfloor" aria-hidden="true"><div class="wrapgfx g66"></div></div>
+            <div class="wrapfloor" aria-hidden="true"><span class="v p1"></span><span class="v p2"></span><span class="v p3"></span><span class="v p4"></span><span class="v p5"></span><span class="v p6"></span><span class="v p7"></span><span class="h p1"></span><span class="h p2"></span><span class="h p3"></span><span class="h p4"></span><span class="h p5"></span><span class="h p6"></span><span class="h p7"></span><div class="wrapgfx g66"></div></div>
             <figcaption>6 × 6 ft graphic · shown on a 24 × 24 ft floor</figcaption>
           </figure>
         </div>
