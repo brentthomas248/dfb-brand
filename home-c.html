@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>DFB — Dance floor rental in Kansas City</title>
-<meta name="description" content="Dance floor rental for weddings and events across the Kansas City metro. Black, white and wood panels on a three-foot grid, from 18 × 18 to 24 × 24 feet. Indoor installs on hard, level surfaces. Quote by request.">
+<meta name="description" content="Dance floor rental for weddings and events across the Kansas City metro. Three-foot panels in black, white and wood, from 18 × 18 feet to 24 × 24. Indoor installs on hard, level surfaces. Quote by request.">
 <style>
 /* EB Garamond (latin, variable 400-600) — embedded base64 so brand pages are
    fully self-contained: correct typography with ZERO network/CDN loads.
@@ -15,46 +15,52 @@ font-display:swap;src:url(data:font/woff2;base64,d09GMgABAAAAAKyMABQAAAABaawAAKw
 /* ---------------------------------------------------------------
    DFB — Quarry palette + Letterpress typography (EB Garamond).
    Tokens are locked in DESIGN.md. Do not reinterpret.
+
+   Version C — question-first. The page answers what a visitor
+   arrives asking (how big, will it work in my room) in real
+   indexable text, before asking anything of them.
+
+   Hard rules held here: zero non-zero border-radius, no shadow,
+   no gradient, all prose >= 18px, no horizontal overflow at 390px,
+   nav <= 6, WCAG AA, nothing on the page that is not confirmed.
    --------------------------------------------------------------- */
+
 :root{
-  --stone:#F2EDE6;
-  --basalt:#1C1A17;
-  --slate:#615950;
-  --clay:#6E4C39;
+  --stone:#F2EDE6;   /* page */
+  --basalt:#1C1A17;  /* text, dark surfaces */
+  --slate:#615950;   /* secondary text  5.91:1 on stone */
+  --clay:#6E4C39;    /* accent, rules   6.54:1 on stone */
 
   /* dark-surface derivatives (DESIGN.md: clay lifts on basalt) */
-  --clay-lift:#C08E68;
-  --stone-dim:#C6BDB2;
+  --clay-lift:#C08E68;  /* 6.05:1 on basalt */
+  --stone-dim:#C6BDB2;  /* 9.36:1 on basalt */
 
-  --rule:#D9D0C3;
+  --rule:#D5CBBD;
+  --hair:#BFB3A2;
   --field:#FBF9F5;
 
   --seam:#6B6459;
-  --edge:#9A9186;
   --panel-black:#0E0D0C;
   --panel-white:#F7F4EE;
   --panel-wood:#6E4C39;
 
-  --gutter:clamp(20px,5vw,64px);
-  --maxw:1240px;
-  --sect:clamp(64px,9vw,132px);
+  --gutter:clamp(22px,5vw,72px);
+  --maxw:1180px;
+  --sect:clamp(76px,10vw,152px);
 }
 
 *,*::before,*::after{box-sizing:border-box;}
 
-html{-webkit-text-size-adjust:100%;} /* offset lives on section[id] scroll-margin-top; don't double it here */
-
-@media (prefers-reduced-motion:no-preference){
-  html{scroll-behavior:smooth;}
-}
+html{-webkit-text-size-adjust:100%;}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth;}}
 
 body{
   margin:0;
   background:var(--stone);
   color:var(--basalt);
   font-family:'EB Garamond',Georgia,'Times New Roman',serif;
-  font-size:1.125rem;
-  line-height:1.7;
+  font-size:1.125rem;      /* 18px floor — EB Garamond reads optically light */
+  line-height:1.62;
   font-weight:400;
   overflow-wrap:break-word;
   -webkit-font-smoothing:antialiased;
@@ -77,502 +83,319 @@ a{color:inherit;}
 .skip{
   position:absolute;left:-9999px;top:0;z-index:60;
   background:var(--basalt);color:var(--stone);
-  padding:14px 20px;text-decoration:none;
+  padding:14px 20px;text-decoration:none;font-size:1.125rem;
 }
 .skip:focus{left:0;}
 
-/* --- Type scale ------------------------------------------------ */
+/* --- Type ------------------------------------------------------ */
 
-h1,h2,h3{font-weight:400;margin:0;line-height:1.1;letter-spacing:-0.01em;}
+h1,h2{font-weight:400;margin:0;letter-spacing:-0.022em;}
 
-h1{font-size:clamp(2.4rem,6.2vw,4.2rem);line-height:1.02;}
-h2{font-size:clamp(1.95rem,4.2vw,2.9rem);}
-h3{font-size:1.375rem;font-weight:600;line-height:1.3;letter-spacing:0;}
+h1{font-size:clamp(2.75rem,7.4vw,5.5rem);line-height:0.98;}
+h2{font-size:clamp(2.1rem,4.6vw,3.4rem);line-height:1.04;}
 
-p{margin:0 0 1.15em;}
+p{margin:0 0 1.1em;}
 p:last-child{margin-bottom:0;}
 
-.eyebrow{
-  font-size:.8rem;
-  text-transform:uppercase;
-  letter-spacing:.18em;
-  font-weight:600;
-  color:var(--clay);
-  margin:0 0 1.4rem;
-}
-.on-dark .eyebrow{color:var(--clay-lift);}
-
 .lead{
-  font-size:clamp(1.2rem,2.1vw,1.45rem);
-  line-height:1.55;
-  max-width:34em;
-  margin-top:1.6rem;
+  font-size:clamp(1.35rem,2.4vw,1.85rem);
+  line-height:1.36;
+  letter-spacing:-0.014em;
+  max-width:30ch;
 }
 
-.measure{max-width:38em;}
+.say{                       /* the single confident paragraph size */
+  font-size:clamp(1.2rem,1.9vw,1.45rem);
+  line-height:1.5;
+  max-width:34ch;
+}
 
-.note{
+.body{max-width:40ch;color:var(--slate);}
+
+.note{color:var(--slate);}
+
+.cap{
   color:var(--slate);
-  max-width:36em;
+  margin-top:14px;
+  letter-spacing:.01em;
 }
-.on-dark .note{color:var(--stone-dim);}
 
-/* --- Review bar (external review tool, not site design) --------- */
+.textlink{
+  color:var(--basalt);
+  text-underline-offset:5px;
+  text-decoration-thickness:1px;
+  text-decoration-color:var(--clay);
+}
+.textlink:hover{text-decoration-color:var(--basalt);}
+
+/* --- Review bar (external review tool, NOT site design) --------- */
 
 .reviewbar{background:var(--basalt);color:var(--stone-dim);}
 .reviewbar-in{
-  max-width:var(--maxw);margin:0 auto;padding:9px var(--gutter);
-  display:flex;align-items:center;flex-wrap:wrap;gap:6px 22px;
-  font-size:.75rem;text-transform:uppercase;letter-spacing:.16em;line-height:1.3;
+  max-width:var(--maxw);margin:0 auto;padding:8px var(--gutter);
+  display:flex;align-items:center;flex-wrap:wrap;gap:5px 22px;
+  font-size:.8125rem;text-transform:uppercase;letter-spacing:.16em;line-height:1.25;
 }
 .reviewbar-tag{color:var(--clay-lift);font-weight:600;}
 .reviewbar a{color:var(--stone-dim);text-decoration:none;}
 .reviewbar a:hover{color:var(--stone);text-decoration:underline;}
 .reviewbar [aria-current]{color:var(--stone);font-weight:600;border-bottom:1px solid var(--clay-lift);}
-/* Keep the review strip to a single line (<40px) on narrow screens.
-   nowrap + its own scroller means it can never grow a second row. */
 @media (max-width:560px){
-  .reviewbar-in{
-    flex-wrap:nowrap;
-    overflow-x:auto;
-    gap:0 14px;
-    letter-spacing:.1em;
-    padding-inline:16px;
-  }
+  .reviewbar-in{flex-wrap:nowrap;overflow-x:auto;gap:0 14px;letter-spacing:.1em;padding-inline:16px;}
   .reviewbar-in > *{flex:0 0 auto;}
 }
 
 /* --- Header ---------------------------------------------------- */
 
-.site{background:var(--stone);border-bottom:1px solid var(--rule);}
-@media (min-width:981px){
-  .site{position:sticky;top:0;z-index:20;}
-}
-
+.site{border-bottom:1px solid var(--rule);}
 .hrow{
   min-height:72px;
   display:flex;align-items:center;justify-content:space-between;
-  gap:24px;flex-wrap:wrap;
+  gap:18px 32px;flex-wrap:wrap;padding-block:12px;
 }
 
-/* Reserved logo slot — 180 × 48. Layout is computed against the box,
-   never against the interim wordmark's width. */
+/* Reserved logo slot — 180 x 48 (DESIGN.md). Box is reserved, not
+   collapsed to the interim wordmark, so the real mark drops in with
+   zero relayout. Interim mark is typographic only. */
 .mark{
+  width:180px;height:48px;
   display:inline-flex;align-items:center;
-  width:180px;height:48px;flex:0 0 auto;
-  text-decoration:none;
+  text-decoration:none;flex:0 0 auto;
 }
-.mark-w{font-size:1.75rem;letter-spacing:.18em;font-weight:600;line-height:1;}
+.mark-w{font-size:1.5rem;letter-spacing:.18em;text-transform:uppercase;}
 
 .navlist{
   list-style:none;margin:0;padding:0;
-  display:flex;align-items:center;flex-wrap:wrap;gap:8px 28px;
+  display:flex;flex-wrap:wrap;gap:6px 30px;
 }
-.navlist a{text-decoration:none;}
-.navlist a:hover{text-decoration:underline;text-underline-offset:5px;text-decoration-color:var(--clay);}
-.navcta{
-  display:inline-block;
-  border:1px solid var(--basalt);
-  padding:9px 20px;
+.navlist a{
+  text-decoration:none;
+  padding-block:4px;
+  border-bottom:1px solid transparent;
 }
-.navcta:hover{background:var(--basalt);color:var(--stone);text-decoration:none;}
-
-@media (max-width:980px){
-  .nav{width:100%;border-top:1px solid var(--rule);}
-  .navlist{padding:14px 0 16px;gap:10px 24px;}
-}
+.navlist a:hover{border-bottom-color:var(--clay);}
 
 /* --- Sections -------------------------------------------------- */
 
-section{padding-block:var(--sect);}
-section[id]{scroll-margin-top:96px;}
+main section[id]{scroll-margin-top:24px;}
 
-.band{background:var(--basalt);color:var(--stone);}
-.band h1,.band h2,.band h3{color:var(--stone);}
-
-.rule-top{border-top:1px solid var(--rule);}
-
-/* --- Buttons --------------------------------------------------- */
-
-.cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:2.2rem;}
-
-.btn{
-  display:inline-block;
-  font:inherit;font-size:1.125rem;
-  background:var(--basalt);color:var(--stone);
-  border:1px solid var(--basalt);border-radius:0;
-  padding:15px 30px;
-  text-decoration:none;letter-spacing:.03em;
-  cursor:pointer;
-}
-.btn:hover{background:var(--clay);border-color:var(--clay);}
-
-.btn.ghost{background:transparent;color:var(--basalt);}
-.btn.ghost:hover{background:var(--basalt);color:var(--stone);border-color:var(--basalt);}
-
-/* --- Hero ------------------------------------------------------ */
-
-.hero{padding-top:clamp(48px,6vw,86px);}
-
+.hero{padding-block:clamp(52px,7vw,96px) clamp(64px,8vw,112px);}
 .hero-grid{
   display:grid;
-  grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);
-  gap:clamp(32px,5vw,72px);
-  align-items:start;
+  grid-template-columns:1fr;
+  gap:clamp(36px,5vw,72px);
+  align-items:end;
 }
-@media (max-width:900px){
-  .hero-grid{grid-template-columns:minmax(0,1fr);}
+@media (min-width:860px){
+  .hero-grid{grid-template-columns:minmax(0,1.06fr) minmax(0,0.94fr);}
 }
+.hero h1{margin-bottom:clamp(26px,3vw,38px);}
+.hero .lead{margin-bottom:26px;}
+.hero-cta{margin-top:30px;font-size:1.25rem;}
 
-.hero-sub{
-  font-size:clamp(1.2rem,2.1vw,1.45rem);
-  line-height:1.5;
-  max-width:30em;
-  margin-top:1.5rem;
+.shot{overflow:hidden;background:var(--rule);}
+.shot img{width:100%;height:100%;object-fit:cover;}
+.shot--portrait{aspect-ratio:3/4;}
+
+/* Size — the page's one display moment. Two ends of the range,
+   set at display scale on hairline rules. */
+.size{padding-block:var(--sect);border-top:1px solid var(--rule);}
+.size-head{max-width:30ch;margin-bottom:clamp(34px,4vw,58px);}
+.size-head h2{margin-bottom:20px;}
+
+.ladder{margin:0;}
+.ladder-row{
+  border-top:1px solid var(--hair);
+  padding-block:clamp(22px,3vw,34px);
+  display:grid;grid-template-columns:1fr;gap:6px 40px;align-items:baseline;
+}
+.ladder-row:last-of-type{border-bottom:1px solid var(--hair);}
+@media (min-width:760px){
+  .ladder-row{grid-template-columns:minmax(0,auto) minmax(0,1fr);}
+}
+.ladder dt{
+  font-size:clamp(3rem,8.2vw,6.25rem);
+  line-height:0.94;
+  letter-spacing:-0.03em;
+  margin:0;
+}
+.ladder dd{
+  margin:0;
   color:var(--slate);
-}
-
-/* --- Size ladder ----------------------------------------------- */
-
-.tablewrap{overflow-x:auto;margin:2.4rem 0 1.4rem;}
-
-.ladder{
-  width:100%;min-width:19rem;
-  border-collapse:collapse;text-align:left;
-}
-.ladder th[scope=col]{
-  font-size:.75rem;font-weight:600;
-  text-transform:uppercase;letter-spacing:.15em;
-  color:var(--slate);
-  padding:0 .8rem .65rem 0;
-  border-bottom:1px solid var(--basalt);
-  white-space:nowrap;
-}
-.ladder th[scope=row]{
-  font-size:1.25rem;font-weight:500;white-space:nowrap;
-}
-.ladder td,.ladder th[scope=row]{
-  padding:.9rem .8rem;
-  padding-left:0;
-  border-bottom:1px solid var(--rule);
-  font-variant-numeric:tabular-nums;
-}
-.ladder tbody tr:last-child td,
-.ladder tbody tr:last-child th{border-bottom:1px solid var(--basalt);}
-
-/* --- Figures --------------------------------------------------- */
-
-figure{margin:0;}
-
-figcaption{
-  font-size:1.125rem;
+  font-size:clamp(1.2rem,1.9vw,1.45rem);
   line-height:1.45;
+}
+@media (min-width:760px){.ladder dd{text-align:right;}}
+
+.size-after{margin-top:clamp(34px,4vw,54px);max-width:46ch;}
+
+/* Your room — qualification first, then real rooms. */
+.room{padding-block:var(--sect) clamp(48px,6vw,84px);border-top:1px solid var(--rule);}
+.room-grid{display:grid;grid-template-columns:1fr;gap:clamp(28px,4vw,56px);}
+@media (min-width:860px){
+  .room-grid{grid-template-columns:minmax(0,0.62fr) minmax(0,1.38fr);align-items:start;}
+}
+.room-list{list-style:none;margin:0;padding:0;}
+.room-list li{
+  border-top:1px solid var(--rule);
+  padding-block:clamp(18px,2.2vw,26px);
+  font-size:clamp(1.2rem,1.7vw,1.375rem);
+  line-height:1.48;
   color:var(--slate);
-  margin-top:.85rem;
 }
-.on-dark figcaption{color:var(--stone-dim);}
+.room-list li:first-child{border-top:0;padding-top:0;}
+.room-list b{font-weight:600;color:var(--basalt);}
 
-.shot img{width:100%;object-fit:cover;}
-.shot-p img{aspect-ratio:3/4;}
-.shot-l img{aspect-ratio:4/3;}
+/* Full-bleed — the one moment that leaves the grid entirely. */
+.bleed{margin-block:clamp(44px,5vw,72px) 0;}
+.bleed-img{aspect-ratio:4/3;overflow:hidden;background:var(--rule);}
+.bleed-img img{width:100%;height:100%;object-fit:cover;object-position:center 64%;}
+@media (min-width:760px){.bleed-img{aspect-ratio:16/9;}}
+@media (min-width:1100px){.bleed-img{aspect-ratio:21/9;}}
+.bleed .cap{padding-inline:var(--gutter);max-width:var(--maxw);margin-inline:auto;}
 
-/* --- Qualification --------------------------------------------- */
-
-.room-grid{
-  display:grid;
-  grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);
-  gap:clamp(36px,5vw,80px);
-  align-items:start;
-  margin-top:3rem;
+/* Pair sits narrower and to the right — a different measure and a
+   different alignment from the full-bleed above it. */
+.pair{
+  margin-top:clamp(38px,4.5vw,62px);
+  max-width:880px;margin-left:auto;
+  display:grid;grid-template-columns:1fr;gap:clamp(22px,3vw,36px);
 }
-@media (max-width:860px){
-  .room-grid{grid-template-columns:minmax(0,1fr);}
-}
-
-.terms{margin:0;}
-.terms div{
-  padding:1.5rem 0;
+@media (min-width:640px){.pair{grid-template-columns:1fr 1fr;}}
+.pair .cap{margin-top:12px;}
+.photo-honesty{
+  margin-top:clamp(28px,3vw,40px);
+  padding-top:20px;
   border-top:1px solid var(--rule);
-  display:grid;
-  grid-template-columns:minmax(0,1fr);
-  gap:.3rem;
-}
-.terms div:first-child{border-top:1px solid var(--basalt);}
-.terms dt{font-size:1.3rem;font-weight:600;line-height:1.3;}
-.terms dd{margin:0;color:var(--slate);}
-
-/* Scale figure — outline only, carries no finish information. */
-.scale{max-width:320px;}
-.scalebox{
-  position:relative;
-  aspect-ratio:1;
-  border:1px solid var(--basalt);
-}
-.scalebox-in{
-  position:absolute;left:0;bottom:0;
-  width:75%;height:75%;
-  border:1px solid var(--clay);
-}
-.dim{
-  position:absolute;
-  font-size:.8rem;text-transform:uppercase;letter-spacing:.14em;
   color:var(--slate);
-  background:var(--stone);
-  padding:0 6px;
-}
-.dim-out{top:-.7em;left:12px;}
-.dim-in{bottom:-.7em;left:10px;color:var(--clay);}
-
-/* --- Finish panels (drawn diagrams — never photographs) --------- */
-
-.swatches{
-  display:flex;flex-wrap:wrap;gap:26px 40px;
-  margin:2.6rem 0 3.4rem;
-  padding:0;list-style:none;
-}
-.swatches li{display:flex;align-items:center;gap:14px;}
-.sw{
-  width:46px;height:46px;flex:0 0 auto;
-  border:1px solid var(--edge);
-}
-.sw-b{background:var(--panel-black);}
-.sw-w{background:var(--panel-white);}
-.sw-d{background:var(--panel-wood);}
-.sw-label{font-size:1.125rem;}
-
-.floors{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
-  gap:clamp(28px,3.5vw,44px);
-  margin-top:.5rem;
+  max-width:46ch;
 }
 
-.floor{
-  display:grid;
-  grid-template-columns:repeat(6,1fr);
-  grid-template-rows:repeat(6,1fr);
-  gap:1px;
-  aspect-ratio:1;
-  background:var(--seam);
-  border:1px solid var(--edge);
+/* Finishes — drawn, never photographed. */
+.finishes{padding-block:var(--sect);border-top:1px solid var(--rule);}
+.fin-grid{display:grid;grid-template-columns:1fr;gap:clamp(38px,5vw,72px);align-items:center;}
+@media (min-width:860px){
+  .fin-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);}
+  .fin-copy{order:2;}
+  .fin-draw{order:1;}
 }
-.floor .b{background:var(--panel-black);}
-.floor .w{background:var(--panel-white);}
-.floor .d{background:var(--panel-wood);}
+.fin-copy h2{margin-bottom:24px;}
 
-.drawn-tag{
-  display:inline-block;
-  font-size:.75rem;text-transform:uppercase;letter-spacing:.16em;
-  font-weight:600;color:var(--clay-lift);
-  margin-bottom:.7rem;
+/* A drawn run of panels sharing seams: shows that the three
+   finishes combine, without depicting a whole floor or implying
+   any inventory. Flat fills only — no gradient, no fake grain. */
+.band{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:2px;background:var(--seam);
+  border:1px solid var(--seam);
 }
+.band span{display:block;aspect-ratio:1;}
+.band .b{background:var(--panel-black);}
+.band .w{background:var(--panel-white);}
+.band .d{background:var(--panel-wood);}
 
-.honesty{
-  margin-top:3.6rem;
-  padding-top:2rem;
-  border-top:1px solid var(--seam);
-  max-width:44em;
+.band-labels{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:2px;margin-top:14px;color:var(--slate);
 }
-
-/* --- Custom centre graphic ------------------------------------- */
-
-.wraps{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
-  gap:clamp(28px,3.5vw,44px);
-  margin-top:2.8rem;
-  max-width:900px;
-}
-.wrapfloor{
-  position:relative;
-  aspect-ratio:1;
-  border:1px solid var(--edge);
-  background:transparent;
-}
-/* three-foot seams, so the box reads as a floor plan and not an empty frame.
-   No finish colours here on purpose — the only filled shape is the graphic. */
-.wrapfloor .v,.wrapfloor .h{position:absolute;background:var(--seam);}
-.wrapfloor .v{top:0;bottom:0;width:1px;left:var(--o);}
-.wrapfloor .h{left:0;right:0;height:1px;top:var(--o);}
-.p1{--o:12.5%}.p2{--o:25%}.p3{--o:37.5%}.p4{--o:50%}
-.p5{--o:62.5%}.p6{--o:75%}.p7{--o:87.5%}
-.wrapgfx{
-  position:absolute;
-  left:50%;top:50%;
-  transform:translate(-50%,-50%);
-  background:var(--panel-wood);
-  border:1px solid var(--clay-lift);
-}
-.g34{width:12.5%;height:16.667%;}
-.g56{width:20.833%;height:25%;}
-.g66{width:25%;height:25%;}
-
-/* --- Installs --------------------------------------------------- */
-
-.plate{margin-top:2.8rem;}
-
-.gallery{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:clamp(14px,2vw,26px);
-  margin-top:clamp(36px,4vw,60px);
-}
-@media (max-width:900px){
-  .gallery{grid-template-columns:repeat(2,minmax(0,1fr));}
-}
-
-.venues{
-  margin-top:clamp(44px,5vw,72px);
-  padding-top:2.4rem;
+.draw-note{
+  margin-top:clamp(24px,3vw,34px);
+  padding-top:20px;
   border-top:1px solid var(--rule);
+  color:var(--slate);
+  max-width:46ch;
 }
-.venuelist{
-  list-style:none;margin:1.8rem 0 0;padding:0;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:1.6rem 2.4rem;
+.draw-note b{color:var(--basalt);font-weight:600;}
+
+/* Quote */
+.quote{
+  padding-block:var(--sect);
+  background:var(--basalt);color:var(--stone);
 }
-.venuelist li{
-  border-top:1px solid var(--rule);
-  padding-top:1rem;
-  font-size:1.3rem;
-  line-height:1.35;
+.quote a{color:var(--stone);}
+.quote-grid{display:grid;grid-template-columns:1fr;gap:clamp(44px,5vw,80px);}
+@media (min-width:900px){
+  .quote-grid{grid-template-columns:minmax(0,0.85fr) minmax(0,1.15fr);align-items:start;}
 }
-.venuelist span{
-  display:block;
-  font-size:.8rem;text-transform:uppercase;letter-spacing:.15em;
-  color:var(--clay);margin-bottom:.5rem;
+.quote h2{margin-bottom:26px;}
+.quote .say{color:var(--stone);}
+.quote-facts{list-style:none;margin:34px 0 0;padding:0;max-width:40ch;}
+.quote-facts li{
+  border-top:1px solid #3A352E;
+  padding-block:18px;
+  color:var(--stone-dim);
 }
 
-/* --- Quote form ------------------------------------------------- */
+form{display:grid;gap:22px;}
+.f-row{display:grid;gap:22px;}
+@media (min-width:620px){.f-row{grid-template-columns:1fr 1fr;}}
+.field{display:grid;gap:9px;}
+/* Native select chrome is rounded, so it is suppressed and the caret is
+   redrawn with borders — an affordance without a border-radius. */
+.sel{position:relative;display:block;}
+.sel::after{
+  content:"";position:absolute;right:18px;top:50%;
+  width:0;height:0;pointer-events:none;
+  border-left:6px solid transparent;
+  border-right:6px solid transparent;
+  border-top:7px solid var(--slate);
+  transform:translateY(-3px);
+}
+.field label{font-size:1.125rem;color:var(--stone);}
+.field .hint{font-size:1.125rem;color:var(--stone-dim);line-height:1.4;}
 
-.quote-grid{
-  display:grid;
-  grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);
-  gap:clamp(36px,5vw,80px);
-  align-items:start;
-}
-@media (max-width:900px){
-  .quote-grid{grid-template-columns:minmax(0,1fr);}
-}
-@media (min-width:901px){
-  /* the intro is ~380px against a ~1435px form; let it travel */
-  .quote-aside{position:sticky;top:112px;}
-}
-
-form fieldset{
-  border:0;border-top:1px solid var(--basalt);
-  margin:0 0 2.6rem;padding:1.8rem 0 0;
-}
-form fieldset:last-of-type{margin-bottom:2rem;}
-
-form legend{
-  padding:0 14px 0 0;
-  font-size:.8rem;text-transform:uppercase;letter-spacing:.18em;
-  font-weight:600;color:var(--clay);
-}
-
-.fields{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:1.5rem 1.6rem;
-  margin-top:1.5rem;
-}
-@media (max-width:620px){
-  .fields{grid-template-columns:minmax(0,1fr);}
-}
-.f-wide{grid-column:1/-1;}
-
-.field{display:flex;flex-direction:column;gap:.5rem;}
-
-.field label,
-.radioset legend{
+input,select,textarea{
+  font-family:inherit;
   font-size:1.125rem;
-  line-height:1.35;
-}
-.req{color:var(--slate);}
-
-/* Hints are full sentences, so they stay at prose size (>=18px). */
-.hint{
-  font-size:1.125rem;color:var(--slate);line-height:1.5;
-}
-
-input[type=text],
-input[type=email],
-input[type=tel],
-input[type=date],
-input[type=number],
-select,
-textarea{
-  font:inherit;font-size:1.125rem;
+  line-height:1.4;
   color:var(--basalt);
   background:var(--field);
-  border:1px solid var(--slate);
+  border:1px solid var(--field);
   border-radius:0;
-  padding:13px 14px;
+  padding:15px 16px;
   width:100%;
   min-width:0;
 }
-textarea{resize:vertical;min-height:130px;line-height:1.6;}
-
-select{
-  appearance:none;
-  -webkit-appearance:none;
-  padding-right:44px;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.4 6 6.4l5-5' fill='none' stroke='%231C1A17' stroke-width='1.4'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;
-  background-position:right 15px center;
-  background-size:12px 8px;
+textarea{min-height:118px;resize:vertical;}
+select{appearance:none;-webkit-appearance:none;padding-right:46px;}
+input:focus-visible,select:focus-visible,textarea:focus-visible{
+  outline:2px solid var(--clay-lift);outline-offset:2px;
 }
 
-.radioset{border:0;border-top:0;margin:0;padding:0;}
-.radioset legend{padding:0;font-size:1.125rem;text-transform:none;letter-spacing:0;font-weight:400;color:var(--basalt);}
-.radios{display:flex;flex-wrap:wrap;gap:10px 26px;margin-top:.7rem;}
-.radios label{display:inline-flex;align-items:center;gap:9px;font-size:1.125rem;}
-.radios input{
-  width:19px;height:19px;margin:0;flex:0 0 auto;
-  accent-color:var(--clay);
+button{
+  font-family:inherit;
+  font-size:1.125rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--basalt);
+  background:var(--stone);
+  border:1px solid var(--stone);
+  border-radius:0;
+  padding:18px 34px;
+  cursor:pointer;
+  justify-self:start;
 }
+button:hover{background:var(--clay-lift);border-color:var(--clay-lift);}
 
-.formfoot{
-  margin-top:2rem;
-  display:flex;flex-wrap:wrap;align-items:center;gap:18px 26px;
-}
+.form-note{color:var(--stone-dim);}
 
-/* --- Footer ----------------------------------------------------- */
-
-.site-foot{
-  background:var(--basalt);color:var(--stone-dim);
-  padding-block:clamp(52px,6vw,86px);
-}
-.site-foot .mark-w{color:var(--stone);}
+/* Footer */
+.foot{padding-block:clamp(52px,6vw,84px) 40px;border-top:1px solid var(--rule);}
 .foot-grid{
-  display:grid;
-  grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);
-  gap:clamp(32px,5vw,72px);
-  align-items:start;
+  display:grid;grid-template-columns:1fr;gap:clamp(32px,4vw,64px);
 }
-@media (max-width:760px){
-  .foot-grid{grid-template-columns:minmax(0,1fr);}
-}
+@media (min-width:760px){.foot-grid{grid-template-columns:minmax(0,1.3fr) minmax(0,0.7fr);}}
 .foot-mark{
-  display:inline-flex;align-items:center;
   width:140px;height:38px;
-  text-decoration:none;margin-bottom:1.6rem;
+  display:inline-flex;align-items:center;
+  text-decoration:none;margin-bottom:20px;
 }
-.foot-mark .mark-w{font-size:1.4rem;}
-.footlinks{
-  list-style:none;margin:0 0 1.8rem;padding:0;
-  display:flex;flex-wrap:wrap;gap:10px 28px;
-}
-.footlinks a{text-decoration:none;}
-.footlinks a:hover{color:var(--stone);text-decoration:underline;text-underline-offset:5px;}
-.site-foot a{color:var(--stone-dim);}
-.foot-fine{
-  margin-top:2.6rem;padding-top:1.6rem;
-  border-top:1px solid var(--seam);
-  font-size:1rem;
-}
+.foot-mark .mark-w{font-size:1.25rem;}
+.foot p{color:var(--slate);max-width:44ch;}
+.footlinks{list-style:none;margin:0 0 20px;padding:0;display:grid;gap:10px;}
+.footlinks a{text-decoration:none;color:var(--basalt);}
+.footlinks a:hover{text-decoration:underline;text-underline-offset:4px;}
+.foot-fine{margin-top:clamp(40px,4vw,60px);padding-top:22px;border-top:1px solid var(--rule);color:var(--slate);}
 </style>
 </head>
 <body>
@@ -593,12 +416,10 @@ select{
     <a class="mark" href="#top" aria-label="DFB — home"><span class="mark-w">DFB</span></a>
     <nav class="nav" aria-label="Primary">
       <ul class="navlist">
-        <li><a href="#sizes">Sizes</a></li>
+        <li><a href="#size">Size</a></li>
         <li><a href="#room">Your room</a></li>
         <li><a href="#finishes">Finishes</a></li>
-        <li><a href="#custom">Custom</a></li>
-        <li><a href="#installs">Installs</a></li>
-        <li><a class="navcta" href="#quote">Request a quote</a></li>
+        <li><a href="#quote">Request a quote</a></li>
       </ul>
     </nav>
   </div>
@@ -606,411 +427,221 @@ select{
 
 <main id="main">
 
-  <!-- ============ HERO — the size ladder, in real text ============ -->
-  <section class="hero" id="sizes" aria-labelledby="hero-h">
+  <!-- 1 — Hero. Real photograph beside the headline. -->
+  <section class="hero">
     <div class="wrap hero-grid">
-
       <div>
-        <p class="eyebrow">Dance floor rental · Kansas City</p>
-        <h1 id="hero-h">What size dance floor do you need?</h1>
-
-        <p class="hero-sub">Black, white and wood panels on a three-foot grid, installed indoors across the Kansas City metro.</p>
-
-        <p class="lead">Every DFB floor is built from three-foot square panels, so the sizes are exact and you can measure them against your own room before you inquire. Here is the ladder we install, end to end.</p>
-
-        <div class="tablewrap">
-          <table class="ladder">
-            <caption class="vh">Dance floor sizes, panel grids, panel counts and floor area</caption>
-            <thead>
-              <tr>
-                <th scope="col">Floor</th>
-                <th scope="col">Panel grid</th>
-                <th scope="col">Panels</th>
-                <th scope="col">Area</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><th scope="row">18 × 18 ft</th><td>6 × 6</td><td>36</td><td>324 sq ft</td></tr>
-              <tr><th scope="row">18 × 21 ft</th><td>6 × 7</td><td>42</td><td>378 sq ft</td></tr>
-              <tr><th scope="row">18 × 24 ft</th><td>6 × 8</td><td>48</td><td>432 sq ft</td></tr>
-              <tr><th scope="row">21 × 24 ft</th><td>7 × 8</td><td>56</td><td>504 sq ft</td></tr>
-              <tr><th scope="row">24 × 24 ft</th><td>8 × 8</td><td>64</td><td>576 sq ft</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <p class="note">18 × 18 is the smallest floor we advertise and 24 × 24 the largest we build. The sizes in between are rectangles in three-foot steps, because reception rooms are rectangular. Smaller floors are available by inquiry. We confirm the size with you at quote, measured against your actual room.</p>
-
-        <p class="cta-row">
-          <a class="btn" href="#quote">Request a quote</a>
-          <a class="btn ghost" href="#finishes">See the finishes</a>
-        </p>
+        <h1>How big, and will it work in your room?</h1>
+        <p class="lead">Both answers are on this page.</p>
+        <p class="say">Dance floor rental for weddings and events across the Kansas City metro. Panels are three feet square, in black, white and wood. We install indoors, on hard and level surfaces.</p>
+        <p class="hero-cta"><a class="textlink" href="#quote">Request a quote</a></p>
       </div>
-
-      <figure class="shot shot-p">
-        <img src="img/ridge-floor-hero.jpg" width="1200" height="1600" decoding="async"
-             alt="A black and white checkerboard dance floor installed at The Ridge, under a pine cathedral ceiling with a stone chimney and a two-tier iron chandelier.">
-        <figcaption>The Ridge · 24 × 24 checkerboard on polished concrete</figcaption>
-      </figure>
-
+      <div>
+        <div class="shot shot--portrait">
+          <img src="img/ridge-floor-hero.jpg" width="1200" height="1600"
+               alt="A black and white checkerboard dance floor installed on the polished concrete floor of a tall reception hall at The Ridge, with a stone fireplace, timber ceiling and a ring chandelier above.">
+        </div>
+        <p class="cap">The Ridge · Kansas City metro</p>
+      </div>
     </div>
   </section>
 
-  <!-- ============ QUALIFICATION — the disqualifying facts, early ============ -->
-  <section id="room" class="rule-top" aria-labelledby="room-h">
+  <!-- 2 — Size. The two confirmed ends of the range, at display scale. -->
+  <section id="size" class="size">
     <div class="wrap">
-      <p class="eyebrow">Before you inquire</p>
-      <h2 id="room-h">Will it work in your room?</h2>
-      <p class="lead">Most rooms are fine. A few are not, and it is far better to find that out here than on the day of the event. These are the conditions a DFB floor needs.</p>
+      <div class="size-head">
+        <h2>The size</h2>
+        <p class="say">Two ends, and a three-foot grid between them.</p>
+      </div>
 
-      <div class="room-grid">
-        <dl class="terms">
-          <div>
-            <dt>Indoors</dt>
-            <dd>We install inside. We do not install outdoors.</dd>
-          </div>
-          <div>
-            <dt>A hard, level surface</dt>
-            <dd>Concrete, hardwood, tile or a finished barn floor. Not grass, not gravel, not soft ground.</dd>
-          </div>
-          <div>
-            <dt>No subfloor</dt>
-            <dd>We do not build up a base underneath the panels, so the surface has to be sound as it already is.</dd>
-          </div>
-          <div>
-            <dt>One placement</dt>
-            <dd>The floor is set once, in one agreed position, and stays there for the event.</dd>
-          </div>
-          <div>
-            <dt>Delivery and installation</dt>
-            <dd>We deliver the floor and install it. There is no customer pickup.</dd>
-          </div>
-        </dl>
+      <dl class="ladder">
+        <div class="ladder-row">
+          <dt>18 × 18 ft</dt>
+          <dd>The smallest floor we advertise</dd>
+        </div>
+        <div class="ladder-row">
+          <dt>24 × 24 ft</dt>
+          <dd>The largest floor we build</dd>
+        </div>
+      </dl>
 
+      <p class="say size-after">Between those two, floors are laid on the same three-foot grid and sized to your room when we quote.</p>
+    </div>
+  </section>
+
+  <!-- 3 — Your room. The disqualifying facts early, as qualification. -->
+  <section id="room" class="room">
+    <div class="wrap room-grid">
+      <div>
+        <h2>Your room</h2>
+      </div>
+      <div>
+        <ul class="room-list">
+          <li><b>Indoors, on a hard and level surface.</b> Not grass, and we do not lay a subfloor.</li>
+          <li><b>We deliver and install.</b> There is no customer pickup.</li>
+          <li><b>The floor is set in one placement.</b> Where it goes is decided before we arrive.</li>
+          <li><b>Kansas City and beyond.</b> Anything outside the metro is taken case by case, and travel is quoted with the floor.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="bleed">
+      <div class="bleed-img">
+        <img src="img/sb-wide-daylight.jpg" width="1600" height="1200"
+             alt="A black and white checkerboard dance floor being installed on the concrete floor of a white timber-framed barn at StoneBriar Farm, with banquet tables set around it in daylight.">
+      </div>
+      <p class="cap">StoneBriar Farm · install in progress</p>
+    </div>
+
+    <div class="wrap">
+      <div class="pair">
         <div>
-          <figure class="scale">
-            <div class="scalebox" aria-hidden="true">
-              <span class="dim dim-out">24 ft</span>
-              <div class="scalebox-in"><span class="dim dim-in">18 ft</span></div>
-            </div>
-            <figcaption>Drawn to scale · 18 × 18 ft (324 sq ft) shown inside 24 × 24 ft (576 sq ft)</figcaption>
-          </figure>
-          <p class="note" style="margin-top:1.8rem">We carry liability insurance. If your venue asks for documentation, mention it in the form and we will send what they need.</p>
+          <div class="shot shot--portrait">
+            <img src="img/stockton-floor.jpg" width="1200" height="1600"
+                 alt="A black and white checkerboard dance floor on a dark polished floor at The Venue at Stockton Lake, surrounded by cross-back chairs and set banquet tables under a timber ceiling.">
+          </div>
+          <p class="cap">The Venue at Stockton Lake</p>
+        </div>
+        <div>
+          <div class="shot shot--portrait">
+            <img src="img/ridge-floor-wide.jpg" width="1200" height="1600"
+                 alt="A wider view of the same reception hall at The Ridge, the checkerboard floor laid square to a stone fireplace with round tables in white linen to one side.">
+          </div>
+          <p class="cap">The Ridge</p>
         </div>
       </div>
+
+      <p class="photo-honesty">Every photograph on this page shows our black and white panels.</p>
     </div>
   </section>
 
-  <!-- ============ DRAWN REGION — finishes + custom graphic ============
-       Everything in this dark band is a drawing. No photograph appears
-       inside it, and no photograph on this page shows wood. ============ -->
-  <div class="band on-dark">
+  <!-- 4 — Finishes. Wood is drawn, never photographed. -->
+  <section id="finishes" class="finishes">
+    <div class="wrap fin-grid">
 
-    <section id="finishes" aria-labelledby="fin-h">
-      <div class="wrap">
-        <p class="eyebrow">Finishes</p>
-        <h2 id="fin-h">Black, white and wood — in any combination</h2>
-        <p class="lead">Panels come in three finishes, and because every floor is a grid of three-foot squares the pattern is a choice rather than a product line. An 18 × 18 floor is thirty-six squares you can arrange.</p>
-
-        <ul class="swatches">
-          <li><span class="sw sw-b" aria-hidden="true"></span><span class="sw-label">Black</span></li>
-          <li><span class="sw sw-w" aria-hidden="true"></span><span class="sw-label">White</span></li>
-          <li><span class="sw sw-d" aria-hidden="true"></span><span class="sw-label">Wood</span></li>
-        </ul>
-
-        <p class="drawn-tag">Diagrams — not photographs</p>
-
-        <div class="floors">
-
-          <figure>
-            <div class="floor" aria-hidden="true">
-              <span class="b"></span><span class="w"></span><span class="b"></span><span class="w"></span><span class="b"></span><span class="w"></span>
-              <span class="w"></span><span class="b"></span><span class="w"></span><span class="b"></span><span class="w"></span><span class="b"></span>
-              <span class="b"></span><span class="w"></span><span class="b"></span><span class="w"></span><span class="b"></span><span class="w"></span>
-              <span class="w"></span><span class="b"></span><span class="w"></span><span class="b"></span><span class="w"></span><span class="b"></span>
-              <span class="b"></span><span class="w"></span><span class="b"></span><span class="w"></span><span class="b"></span><span class="w"></span>
-              <span class="w"></span><span class="b"></span><span class="w"></span><span class="b"></span><span class="w"></span><span class="b"></span>
-            </div>
-            <figcaption>Checkerboard · 18 black, 18 white</figcaption>
-          </figure>
-
-          <figure>
-            <div class="floor" aria-hidden="true">
-              <span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span>
-              <span class="d"></span><span class="b"></span><span class="w"></span><span class="b"></span><span class="w"></span><span class="d"></span>
-              <span class="d"></span><span class="w"></span><span class="b"></span><span class="w"></span><span class="b"></span><span class="d"></span>
-              <span class="d"></span><span class="b"></span><span class="w"></span><span class="b"></span><span class="w"></span><span class="d"></span>
-              <span class="d"></span><span class="w"></span><span class="b"></span><span class="w"></span><span class="b"></span><span class="d"></span>
-              <span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span>
-            </div>
-            <figcaption>Wood border · 20 wood around a 16-panel checkerboard</figcaption>
-          </figure>
-
-          <figure>
-            <div class="floor" aria-hidden="true">
-              <span class="d"></span><span class="d"></span><span class="d"></span><span class="b"></span><span class="b"></span><span class="b"></span>
-              <span class="d"></span><span class="d"></span><span class="d"></span><span class="b"></span><span class="b"></span><span class="b"></span>
-              <span class="d"></span><span class="d"></span><span class="d"></span><span class="b"></span><span class="b"></span><span class="b"></span>
-              <span class="d"></span><span class="d"></span><span class="d"></span><span class="b"></span><span class="b"></span><span class="b"></span>
-              <span class="d"></span><span class="d"></span><span class="d"></span><span class="b"></span><span class="b"></span><span class="b"></span>
-              <span class="d"></span><span class="d"></span><span class="d"></span><span class="b"></span><span class="b"></span><span class="b"></span>
-            </div>
-            <figcaption>Split · 18 wood, 18 black</figcaption>
-          </figure>
-
-          <figure>
-            <div class="floor" aria-hidden="true">
-              <span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span>
-              <span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span>
-              <span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span>
-              <span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span>
-              <span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span>
-              <span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span>
-            </div>
-            <figcaption>All wood · 36 panels</figcaption>
-          </figure>
-
+      <div class="fin-draw">
+        <div class="band" role="img" aria-label="Drawing of three dance floor panels side by side, one black, one white, one wood, sharing seams.">
+          <span class="b"></span>
+          <span class="w"></span>
+          <span class="d"></span>
         </div>
-
-        <div class="honesty">
-          <p>Each floor above is a drawing, not a photograph. We have the wood panels; the first wood install simply has not been photographed yet, so the combinations here are drawn to scale on the three-foot grid rather than shown as pictures. Every photograph further down this page is a real install, and all of them are the black and white checkerboard.</p>
+        <div class="band-labels">
+          <span>Black</span>
+          <span>White</span>
+          <span>Wood</span>
         </div>
-      </div>
-    </section>
-
-    <section id="custom" aria-labelledby="cus-h" style="padding-top:0">
-      <div class="wrap">
-        <p class="eyebrow">Custom</p>
-        <h2 id="cus-h">A graphic in the centre of the floor</h2>
-        <p class="lead">A printed vinyl wrap is applied to the middle of the floor — a monogram, a date, a crest. It comes in three sizes.</p>
-
-        <p class="drawn-tag">Diagrams — not photographs</p>
-
-        <div class="wraps">
-          <figure>
-            <div class="wrapfloor" aria-hidden="true"><span class="v p1"></span><span class="v p2"></span><span class="v p3"></span><span class="v p4"></span><span class="v p5"></span><span class="v p6"></span><span class="v p7"></span><span class="h p1"></span><span class="h p2"></span><span class="h p3"></span><span class="h p4"></span><span class="h p5"></span><span class="h p6"></span><span class="h p7"></span><div class="wrapgfx g34"></div></div>
-            <figcaption>3 × 4 ft graphic · shown on a 24 × 24 ft floor</figcaption>
-          </figure>
-          <figure>
-            <div class="wrapfloor" aria-hidden="true"><span class="v p1"></span><span class="v p2"></span><span class="v p3"></span><span class="v p4"></span><span class="v p5"></span><span class="v p6"></span><span class="v p7"></span><span class="h p1"></span><span class="h p2"></span><span class="h p3"></span><span class="h p4"></span><span class="h p5"></span><span class="h p6"></span><span class="h p7"></span><div class="wrapgfx g56"></div></div>
-            <figcaption>5 × 6 ft graphic · shown on a 24 × 24 ft floor</figcaption>
-          </figure>
-          <figure>
-            <div class="wrapfloor" aria-hidden="true"><span class="v p1"></span><span class="v p2"></span><span class="v p3"></span><span class="v p4"></span><span class="v p5"></span><span class="v p6"></span><span class="v p7"></span><span class="h p1"></span><span class="h p2"></span><span class="h p3"></span><span class="h p4"></span><span class="h p5"></span><span class="h p6"></span><span class="h p7"></span><div class="wrapgfx g66"></div></div>
-            <figcaption>6 × 6 ft graphic · shown on a 24 × 24 ft floor</figcaption>
-          </figure>
-        </div>
-
-        <p class="note" style="margin-top:2.8rem;max-width:44em">We have turned a custom floor around in three days. Artwork, placement and timing are agreed before the floor is made.</p>
-      </div>
-    </section>
-
-  </div>
-
-  <!-- ============ INSTALLS — photography only ============ -->
-  <section id="installs" aria-labelledby="ins-h">
-    <div class="wrap">
-      <p class="eyebrow">Real installs</p>
-      <h2 id="ins-h">Floors we have installed</h2>
-      <p class="lead">Every photograph below is a DFB floor at a named venue — no stock photography and no manufacturer renders.</p>
-
-      <figure class="shot shot-l plate">
-        <img src="img/sb-floor-front.jpg" width="1600" height="1200" loading="lazy" decoding="async"
-             alt="A black and white checkerboard dance floor filling the frame at StoneBriar Farm, with banquet tables and cross-back chairs set around it on polished concrete.">
-        <figcaption>StoneBriar Farm · floor laid and the room set before guests arrive</figcaption>
-      </figure>
-
-      <div class="gallery">
-        <figure class="shot shot-p">
-          <img src="img/sb-room-wide.jpg" width="1200" height="1600" loading="lazy" decoding="async"
-               alt="The reception hall at StoneBriar Farm with white arched beams, a ring chandelier and a checkerboard dance floor on polished concrete.">
-          <figcaption>StoneBriar Farm</figcaption>
-        </figure>
-        <figure class="shot shot-p">
-          <img src="img/stockton-floor.jpg" width="1200" height="1600" loading="lazy" decoding="async"
-               alt="A checkerboard dance floor at The Venue at Stockton Lake, in a timber-frame hall with balconies, string lights and tall windows looking out to the trees.">
-          <figcaption>The Venue at Stockton Lake</figcaption>
-        </figure>
-        <figure class="shot shot-p">
-          <img src="img/ridge-floor-wide.jpg" width="1200" height="1600" loading="lazy" decoding="async"
-               alt="The full height of the hall at The Ridge, with a stone chimney, wood truss balconies and a checkerboard dance floor set among round tables.">
-          <figcaption>The Ridge</figcaption>
-        </figure>
-        <figure class="shot shot-p">
-          <img src="img/sb-room-alt.jpg" width="1200" height="1600" loading="lazy" decoding="async"
-               alt="A checkerboard dance floor at StoneBriar Farm seen from the far end of the room, with dark arched beams and tables dressed in white.">
-          <figcaption>StoneBriar Farm</figcaption>
-        </figure>
+        <p class="draw-note"><b>Drawing — not a photograph.</b> We have the wood panels; the first wood install simply has not been photographed yet.</p>
       </div>
 
-      <div class="venues">
-        <h3>Venues we have worked in</h3>
-        <ul class="venuelist">
-          <li><span>Kansas City metro</span>StoneBriar Farm</li>
-          <li><span>Kansas City metro</span>The Ridge</li>
-          <li><span>Kansas City metro</span>Whiskey Ridge</li>
-          <li><span>Stockton Lake</span>The Venue at Stockton Lake</li>
-        </ul>
-        <p class="note" style="margin-top:2rem">Kansas City and beyond, case by case. Travel is quoted along with the floor. If your venue is not on this list, it is not a problem — tell us where it is.</p>
+      <div class="fin-copy">
+        <h2>Black, white, wood</h2>
+        <p class="say">Three finishes, and any combination of the three.</p>
+        <p class="body">The pattern is a choice rather than a product line — not a fixed set of named arrangements. It is settled with you when we quote.</p>
+        <p class="body">A vinyl graphic can be applied to the center of the floor, at 3 × 4, 5 × 6 or 6 × 6 feet.</p>
       </div>
+
     </div>
   </section>
 
-  <!-- ============ QUOTE ============ -->
-  <section id="quote" class="rule-top" aria-labelledby="q-h">
+  <!-- 5 — Quote. Quote-only stated as a choice. Six questions. -->
+  <section id="quote" class="quote on-dark">
     <div class="wrap quote-grid">
 
-      <div class="quote-aside">
-        <p class="eyebrow">Quote</p>
-        <h2 id="q-h">Tell us about the room</h2>
-        <p class="lead">We do not publish prices. Every quote depends on the room, the date and the floor you want, so we would rather work it out properly than post a number that turns out to be wrong.</p>
-        <p class="note">The first question is about your surface, because that is the one thing that can rule a booking out. Everything after it is straightforward.</p>
+      <div>
+        <h2>Request a quote</h2>
+        <p class="say">Room, size, finish and travel all move the number, so we price each floor rather than publish a list.</p>
+        <ul class="quote-facts">
+          <li>Most dates are booked well ahead of time. We have also turned a custom floor around in three days.</li>
+          <li>We carry liability insurance.</li>
+        </ul>
       </div>
 
-      <form novalidate>
+      <div>
+        <form action="#quote" method="post">
 
-        <fieldset>
-          <legend>Your room</legend>
-          <div class="fields">
-
-            <div class="field f-wide">
-              <label for="surface">What will the floor sit on? <span class="req">(required)</span></label>
+          <div class="field">
+            <label for="surface">What will the floor sit on?</label>
+            <span class="sel">
               <select id="surface" name="surface" required>
-                <option value="">Please choose</option>
-                <option>Concrete</option>
-                <option>Hardwood</option>
-                <option>Tile or vinyl</option>
-                <option>Carpet</option>
-                <option>Outdoors or on grass</option>
-                <option>Not sure</option>
+                <option value="">Choose one</option>
+                <option>A hard, level indoor floor</option>
+                <option>I am not sure yet</option>
+                <option>Grass or another outdoor surface</option>
               </select>
-              <p class="hint">We install indoors only, on hard and level surfaces. No subfloor and no outdoor installs.</p>
-            </div>
-
-            <div class="field">
-              <label for="venue">Venue name</label>
-              <input type="text" id="venue" name="venue" autocomplete="off">
-            </div>
-
-            <div class="field">
-              <label for="city">City or town</label>
-              <input type="text" id="city" name="city" autocomplete="address-level2">
-            </div>
-
+            </span>
+            <span class="hint">We install indoors only, on hard and level surfaces.</span>
           </div>
-        </fieldset>
 
-        <fieldset>
-          <legend>The floor</legend>
-          <div class="fields">
-
-            <div class="field">
-              <label for="size">Size you have in mind</label>
-              <select id="size" name="size">
-                <option>Not sure — help me size it</option>
-                <option>18 × 18 ft</option>
-                <option>18 × 21 ft</option>
-                <option>18 × 24 ft</option>
-                <option>21 × 24 ft</option>
-                <option>24 × 24 ft</option>
-                <option>Smaller than 18 × 18 ft</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label for="finish">Finish</label>
-              <select id="finish" name="finish">
-                <option>Not sure yet</option>
-                <option>Black and white checkerboard</option>
-                <option>All black</option>
-                <option>All white</option>
-                <option>All wood</option>
-                <option>A combination — let's talk</option>
-              </select>
-            </div>
-
-            <fieldset class="radioset field f-wide">
-              <legend>Would you like a graphic in the centre?</legend>
-              <div class="radios">
-                <label><input type="radio" name="graphic" value="yes"> Yes</label>
-                <label><input type="radio" name="graphic" value="no"> No</label>
-                <label><input type="radio" name="graphic" value="more"> Tell me more</label>
-              </div>
-            </fieldset>
-
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <legend>About you</legend>
-          <div class="fields">
-
-            <div class="field">
-              <label for="name">Your name <span class="req">(required)</span></label>
-              <input type="text" id="name" name="name" autocomplete="name" required>
-            </div>
-
-            <div class="field">
-              <label for="email">Email <span class="req">(required)</span></label>
-              <input type="email" id="email" name="email" autocomplete="email" required>
-            </div>
-
-            <div class="field">
-              <label for="phone">Phone</label>
-              <input type="tel" id="phone" name="phone" autocomplete="tel">
-            </div>
-
+          <div class="f-row">
             <div class="field">
               <label for="date">Event date</label>
-              <input type="date" id="date" name="date">
-              <p class="hint">If you have one yet.</p>
+              <input id="date" name="date" type="date">
             </div>
-
             <div class="field">
-              <label for="guests">Approximate guest count</label>
-              <input type="number" id="guests" name="guests" min="0" step="1" inputmode="numeric">
+              <label for="venue">Venue or city</label>
+              <input id="venue" name="venue" type="text" autocomplete="off">
             </div>
-
-            <div class="field f-wide">
-              <label for="notes">Anything else we should know</label>
-              <textarea id="notes" name="notes" rows="5"></textarea>
-            </div>
-
           </div>
-        </fieldset>
 
-        <div class="formfoot">
-          <button class="btn" type="submit">Request a quote</button>
-          <span class="hint">We use your details to answer your inquiry and nothing else.</span>
-        </div>
+          <div class="field">
+            <label for="size-select">Floor size</label>
+            <span class="sel">
+              <select id="size-select" name="size">
+                <option>Not sure yet</option>
+                <option>18 × 18 ft</option>
+                <option>24 × 24 ft</option>
+                <option>Something in between</option>
+                <option>Smaller than 18 × 18 ft</option>
+              </select>
+            </span>
+          </div>
 
-      </form>
+          <div class="f-row">
+            <div class="field">
+              <label for="name">Your name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="more">Anything else</label>
+            <textarea id="more" name="more"></textarea>
+          </div>
+
+          <button type="submit">Send request</button>
+          <p class="form-note">Design mockup — this form is not connected yet.</p>
+
+        </form>
+      </div>
+
     </div>
   </section>
 
 </main>
 
-<footer class="site-foot on-dark">
+<footer class="foot">
   <div class="wrap foot-grid">
 
     <div>
       <a class="foot-mark" href="#top" aria-label="DFB — home"><span class="mark-w">DFB</span></a>
-      <p>Dance floor rental for weddings and events across the Kansas City metro. Black, white and wood panels on a three-foot grid, from 18 × 18 to 24 × 24 feet.</p>
+      <p>Dance floor rental for weddings and events across the Kansas City metro. Three-foot panels in black, white and wood, from 18 × 18 feet to 24 × 24.</p>
       <p>Indoor installs on hard, level surfaces. Delivery and installation only. We carry liability insurance.</p>
     </div>
 
     <div>
       <nav aria-label="Footer">
         <ul class="footlinks">
-          <li><a href="#sizes">Sizes</a></li>
+          <li><a href="#size">Size</a></li>
           <li><a href="#room">Your room</a></li>
           <li><a href="#finishes">Finishes</a></li>
-          <li><a href="#custom">Custom</a></li>
-          <li><a href="#installs">Installs</a></li>
           <li><a href="#quote">Request a quote</a></li>
         </ul>
       </nav>
-      <p><a href="mailto:dancefloorbros@gmail.com">dancefloorbros@gmail.com</a></p>
+      <p class="note">Placeholder — a public phone number and email address have not been confirmed.</p>
     </div>
 
   </div>
