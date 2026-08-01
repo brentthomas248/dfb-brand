@@ -1,0 +1,1497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DFB — Brand Studio</title>
+<meta name="description" content="Mix and match: eight colour palettes and eight typography systems for DFB. Pick each independently and see the combination render live.">
+<style>
+/* ==============================================================
+   DFB — BRAND STUDIO
+   Zero border-radius. No box-shadows. No gradients. No scripts
+   faces. Hard-left alignment throughout.
+
+   The CHROME (this page) is deliberately colourless and set in a
+   single neutral system sans, so that nothing here competes with
+   the combination being previewed.
+
+   No network fonts are loaded. Every typography option renders in
+   the closest face already installed on this device; the real
+   intended family is named in text beside every option.
+   ============================================================== */
+
+*, *::before, *::after { box-sizing: border-box; border-radius: 0 !important; }
+
+:root {
+  /* --- chrome (neutral, no hue of its own) --- */
+  --c-bg:      #ECEAE7;
+  --c-panel:   #F6F5F3;
+  --c-ink:     #1B1917;
+  --c-mute:    #6B655D;   /* 4.88:1 on --c-bg */
+  --c-line:    #858078;   /* 3.28:1 on --c-bg — legal UI boundary */
+  --c-hair:    #D6D2CC;   /* decorative only */
+  --c-inv-fg:  #F6F5F3;
+
+  --c-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --c-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+
+  --gut: clamp(1.1rem, 4.5vw, 3rem);
+  --sec: clamp(2.75rem, 7vw, 5rem);
+
+  /* --- preview defaults (overwritten by JS) --- */
+  --p-bg: #F7F6F4; --p-fg: #1C1A17; --p-body: #1C1A17; --p-mute: #5D584F;
+  --p-accent: #7E6140; --p-btn-bg: #1C1A17; --p-btn-fg: #F7F6F4;
+  --p-plate: #EDEAE4; --p-plate-fg: #5D584F; --p-hair: #DCD8D0; --p-rule: #8E8880;
+  --p-band: #EDEAE4; --p-band-fg: #1C1A17; --p-band-body: #1C1A17;
+  --p-band-mute: #5D584F; --p-band-accent: #7E6140;
+
+  --t-display: Didot, "Bodoni 72", Georgia, serif;
+  --t-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --t-label: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --t-transform: none; --t-track: -0.015em; --t-weight: 500;
+  --t-lead: 1.04; --t-mult: 1.05;
+  --t-body-size: 17px; --t-body-lead: 1.62;
+}
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--c-bg);
+  color: var(--c-ink);
+  font-family: var(--c-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+p { margin: 0 0 1em; }
+p:last-child { margin-bottom: 0; }
+h1, h2, h3, h4 { margin: 0; font-weight: 600; }
+dl, dd, dt { margin: 0; }
+hr { border: 0; border-top: 1px solid var(--c-hair); margin: 0; }
+a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+
+:focus-visible { outline: 2px solid var(--c-ink); outline-offset: 2px; }
+
+.wrap { max-width: 1440px; margin: 0 auto; padding: 0 var(--gut); }
+
+.eyebrow {
+  font-family: var(--c-sans);
+  font-size: 10.5px; line-height: 1.4;
+  letter-spacing: 0.17em; text-transform: uppercase; font-weight: 700;
+  color: var(--c-mute);
+}
+.rule-top { border-top: 1px solid var(--c-line); padding-top: 0.7rem; }
+
+.skip {
+  position: absolute; left: -9999px; top: 0;
+  background: var(--c-ink); color: var(--c-inv-fg);
+  padding: 0.75rem 1rem; z-index: 60; font-size: 13px; font-weight: 600;
+}
+.skip:focus { left: 0; }
+
+/* ---------------- masthead ---------------- */
+
+.top { padding: clamp(2.25rem, 6vw, 4.5rem) 0 0; }
+.top__kicker { display: flex; flex-wrap: wrap; gap: 0.4rem 1.5rem; justify-content: space-between; }
+.top h1 {
+  font-size: clamp(2rem, 6.5vw, 3.6rem);
+  line-height: 1.04; letter-spacing: -0.025em; font-weight: 600;
+  margin-top: 1.1rem; max-width: 20ch;
+}
+.top__lede { margin-top: 1.4rem; max-width: 62ch; font-size: clamp(15px, 1.6vw, 17px); color: var(--c-ink); }
+.top__lede strong { font-weight: 600; }
+.top__sub { margin-top: 1rem; max-width: 66ch; font-size: 14.5px; color: var(--c-mute); }
+
+/* whats-new */
+.new { margin-top: clamp(2rem, 5vw, 3.25rem); }
+.new__grid { display: grid; gap: 0; border-top: 1px solid var(--c-line); }
+@media (min-width: 780px) { .new__grid { grid-template-columns: 1fr 1fr; } }
+.new__cell { padding: 1.1rem 0 1.3rem; border-bottom: 1px solid var(--c-hair); }
+@media (min-width: 780px) {
+  .new__cell { padding-right: 2.5rem; }
+  .new__cell + .new__cell { padding-left: 2.5rem; border-left: 1px solid var(--c-hair); }
+}
+.new__cell h3 { font-size: 14px; letter-spacing: 0.01em; margin-bottom: 0.4rem; }
+.new__cell p { font-size: 14px; color: var(--c-mute); margin: 0; }
+
+/* ---------------- layout ---------------- */
+
+.studio { padding-top: var(--sec); }
+.studio__grid { display: grid; gap: clamp(2rem, 4vw, 3rem); align-items: start; }
+@media (min-width: 1040px) {
+  .studio__grid { grid-template-columns: minmax(280px, 330px) minmax(0, 1fr); gap: clamp(2.5rem, 3.5vw, 4rem); }
+  .rail { position: sticky; top: 1.5rem; max-height: calc(100vh - 3rem); overflow-y: auto; overscroll-behavior: contain; padding-right: 0.5rem; }
+}
+
+/* ---------------- controls ---------------- */
+
+.grp + .grp { margin-top: clamp(1.75rem, 3vw, 2.5rem); }
+.grp__head { border-top: 1px solid var(--c-line); padding-top: 0.7rem; display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; }
+.grp__note { margin: 0.7rem 0 1rem; font-size: 13px; color: var(--c-mute); line-height: 1.55; max-width: 52ch; }
+
+.chips { display: grid; gap: 0; border-top: 1px solid var(--c-hair); }
+@media (min-width: 460px) and (max-width: 1039px) { .chips { grid-template-columns: 1fr 1fr; } }
+
+.chip {
+  -webkit-appearance: none; appearance: none;
+  display: block; width: 100%; text-align: left;
+  font: inherit; color: var(--c-ink);
+  background: var(--c-panel);
+  border: 1px solid var(--c-line);
+  border-top: 0;
+  padding: 0.7rem 0.85rem 0.8rem;
+  cursor: pointer;
+  transition: background-color .12s linear, color .12s linear;
+}
+@media (min-width: 460px) and (max-width: 1039px) {
+  .chip { border-left: 0; }
+  .chip:nth-child(odd) { border-left: 1px solid var(--c-line); }
+}
+.chip:hover { background: #E4E1DC; }
+.chip[aria-pressed="true"] { background: var(--c-ink); color: var(--c-inv-fg); border-color: var(--c-ink); }
+.chip[aria-pressed="true"]:hover { background: #000; }
+
+.chip__row { display: flex; align-items: baseline; justify-content: space-between; gap: 0.6rem; }
+.chip__name { font-size: 15px; font-weight: 600; letter-spacing: -0.005em; }
+.chip__pick {
+  font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700;
+  opacity: 0; flex: none;
+}
+.chip[aria-pressed="true"] .chip__pick { opacity: 1; }
+.chip__sub { display: block; font-size: 12.5px; line-height: 1.45; color: var(--c-mute); margin-top: 0.2rem; }
+.chip[aria-pressed="true"] .chip__sub { color: #C7C2BA; }
+
+/* palette mini-bars */
+.chip__bars { display: flex; height: 13px; margin-top: 0.55rem; border: 1px solid rgba(0,0,0,0.22); }
+.chip[aria-pressed="true"] .chip__bars { border-color: rgba(255,255,255,0.32); }
+.chip__bars i { display: block; flex: 1 1 0; }
+
+/* type specimen inside chip */
+.chip__spec { font-size: 21px; line-height: 1.2; margin-top: 0.15rem; letter-spacing: -0.005em; }
+
+/* presets */
+.presets { display: grid; gap: 0; border-top: 1px solid var(--c-hair); }
+@media (min-width: 620px) and (max-width: 1039px) { .presets { grid-template-columns: 1fr 1fr; } }
+.preset {
+  -webkit-appearance: none; appearance: none;
+  display: block; width: 100%; text-align: left; font: inherit;
+  background: transparent; color: var(--c-ink);
+  border: 0; border-bottom: 1px solid var(--c-hair);
+  padding: 0.75rem 0 0.85rem; cursor: pointer;
+}
+@media (min-width: 620px) and (max-width: 1039px) {
+  .preset { padding-right: 1.5rem; }
+  .preset:nth-child(even) { padding-left: 1.5rem; border-left: 1px solid var(--c-hair); }
+}
+.preset:hover .preset__name { text-decoration: underline; }
+.preset__name { display: block; font-size: 14.5px; font-weight: 600; line-height: 1.3; }
+.preset__combo { display: block; font-size: 12.5px; color: var(--c-mute); margin-top: 0.1rem; }
+.preset__why { display: block; font-size: 12.5px; color: var(--c-mute); margin-top: 0.45rem; line-height: 1.5; max-width: 46ch; }
+.preset[data-on="1"] .preset__name::after { content: " — showing now"; font-weight: 700; font-size: 9.5px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--c-ink); }
+
+.reset {
+  margin-top: 1rem; -webkit-appearance: none; appearance: none;
+  font: inherit; font-size: 12px; letter-spacing: 0.13em; text-transform: uppercase; font-weight: 700;
+  background: transparent; color: var(--c-ink);
+  border: 1px solid var(--c-line); padding: 0.6rem 1rem; cursor: pointer;
+}
+.reset:hover { background: var(--c-ink); color: var(--c-inv-fg); border-color: var(--c-ink); }
+
+/* ---------------- stage ---------------- */
+
+.stage__head { border-top: 1px solid var(--c-line); padding-top: 0.7rem; display: flex; flex-wrap: wrap; gap: 0.35rem 1.5rem; justify-content: space-between; align-items: baseline; }
+.stage__now { font-size: clamp(1.05rem, 2.4vw, 1.45rem); font-weight: 600; letter-spacing: -0.015em; margin-top: 0.55rem; }
+.stage__now em { font-style: normal; color: var(--c-mute); font-weight: 400; }
+.stage__meta { margin-top: 0.35rem; font-size: 13px; color: var(--c-mute); max-width: 70ch; }
+
+.frame { margin-top: 1.1rem; border: 1px solid var(--c-line); background: var(--p-bg); }
+
+.jump {
+  display: inline-block; margin-top: 1rem; font-size: 12px; font-weight: 700;
+  letter-spacing: 0.13em; text-transform: uppercase; color: var(--c-ink);
+}
+@media (min-width: 1040px) { .jump { display: none; } }
+
+/* ---------------- THE PREVIEW ---------------- */
+
+.pv {
+  background: var(--p-bg);
+  color: var(--p-body);
+  font-family: var(--t-body);
+  font-size: var(--t-body-size);
+  line-height: var(--t-body-lead);
+  padding: clamp(1.15rem, 3.4vw, 3rem);
+}
+.pv-eyebrow {
+  font-family: var(--t-label);
+  font-size: 10.5px; letter-spacing: 0.17em; text-transform: uppercase; font-weight: 700;
+  color: var(--p-accent); margin: 0 0 0.9rem;
+}
+.pv-h1 {
+  font-family: var(--t-display);
+  font-size: calc(clamp(1.85rem, 5.6vw, 3.9rem) * var(--t-mult));
+  line-height: var(--t-lead);
+  letter-spacing: var(--t-track);
+  text-transform: var(--t-transform);
+  font-weight: var(--t-weight);
+  color: var(--p-fg);
+  max-width: 17ch;
+}
+.pv-h2 {
+  font-family: var(--t-display);
+  font-size: calc(clamp(1.3rem, 3.2vw, 2.15rem) * var(--t-mult));
+  line-height: calc(var(--t-lead) + 0.08);
+  letter-spacing: var(--t-track);
+  text-transform: var(--t-transform);
+  font-weight: var(--t-weight);
+  color: var(--p-fg);
+  max-width: 22ch;
+}
+
+/* nav */
+.pv-nav {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 1.5rem;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--p-hair);
+  padding-bottom: 0.95rem;
+}
+.pv-mark {
+  font-family: var(--t-display);
+  font-size: 1.35rem; font-weight: var(--t-weight);
+  letter-spacing: 0.08em; color: var(--p-fg);
+}
+.pv-links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.35rem; }
+.pv-links span {
+  font-family: var(--t-label);
+  font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 600;
+  color: var(--p-mute);
+}
+.pv-links span:first-child { color: var(--p-fg); }
+.pv-navcta {
+  font-family: var(--t-label);
+  font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 700;
+  color: var(--p-accent);
+  border-bottom: 1px solid var(--p-accent);
+  padding-bottom: 2px;
+}
+
+/* hero */
+.pv-hero { padding: clamp(2rem, 6vw, 4.25rem) 0 clamp(1.5rem, 4vw, 2.75rem); }
+.pv-deck {
+  font-family: var(--t-body);
+  font-size: calc(var(--t-body-size) + 2px);
+  line-height: 1.5;
+  color: var(--p-body);
+  max-width: 46ch; margin: 1.25rem 0 0;
+}
+.pv-btn {
+  display: inline-block; margin-top: clamp(1.5rem, 3.5vw, 2.25rem);
+  background: var(--p-btn-bg); color: var(--p-btn-fg);
+  border: 1px solid var(--p-btn-bg);
+  font-family: var(--t-label);
+  padding: 0.85rem 1.7rem;
+  font-size: 11.5px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700;
+  text-decoration: none;
+}
+
+/* photo plate */
+.pv-plate {
+  background: var(--p-plate);
+  border: 1px solid var(--p-hair);
+  min-height: clamp(150px, 30vw, 300px);
+  display: flex; align-items: flex-end; padding: 0.9rem 1rem;
+}
+.pv-plate span {
+  font-family: var(--t-label);
+  font-size: 10px; letter-spacing: 0.17em; text-transform: uppercase; font-weight: 700;
+  color: var(--p-plate-fg);
+}
+.pv-cap {
+  font-family: var(--t-body);
+  margin: 0.75rem 0 0; font-size: 12.5px; line-height: 1.55;
+  color: var(--p-mute); max-width: 62ch;
+}
+
+/* spec band */
+.pv-band {
+  background: var(--p-band); color: var(--p-band-body);
+  margin-top: clamp(2rem, 5vw, 3.25rem);
+  padding: clamp(1.25rem, 3.2vw, 2.25rem);
+}
+.pv-band .pv-band-label {
+  font-family: var(--t-label);
+  font-size: 10px; letter-spacing: 0.17em; text-transform: uppercase; font-weight: 700;
+  color: var(--p-band-accent); margin-bottom: 1.1rem;
+}
+.pv-specs { display: grid; gap: 0; border-top: 1px solid var(--p-rule); }
+@media (min-width: 540px) { .pv-specs { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 900px) { .pv-specs { grid-template-columns: repeat(4, 1fr); } }
+.pv-specs > div { padding: 0.85rem 1.25rem 0.95rem 0; border-bottom: 1px solid var(--p-rule); }
+@media (min-width: 900px) { .pv-specs > div { border-bottom: 0; } }
+.pv-specs dt {
+  font-family: var(--t-label);
+  font-size: 9.5px; letter-spacing: 0.17em; text-transform: uppercase; font-weight: 700;
+  color: var(--p-band-mute); margin-bottom: 0.35rem;
+}
+.pv-specs dd {
+  font-family: var(--t-display);
+  font-size: calc(1.1rem * var(--t-mult)); line-height: 1.25;
+  font-weight: var(--t-weight); letter-spacing: var(--t-track);
+  text-transform: var(--t-transform);
+  color: var(--p-band-fg); font-variant-numeric: tabular-nums;
+}
+
+/* text section */
+.pv-text { padding: clamp(2rem, 5vw, 3.25rem) 0 0; }
+.pv-body { max-width: 58ch; margin-top: 1.1rem; color: var(--p-body); }
+.pv-small {
+  margin-top: 1.4rem; padding-top: 0.7rem;
+  border-top: 1px solid var(--p-hair);
+  font-size: 12.5px; line-height: 1.55; color: var(--p-mute); max-width: 50ch;
+  font-variant-numeric: tabular-nums;
+}
+
+/* preview footer */
+.pv-foot {
+  margin-top: clamp(2rem, 5vw, 3rem);
+  border-top: 1px solid var(--p-hair);
+  padding-top: 0.9rem;
+  display: flex; flex-wrap: wrap; gap: 0.4rem 1.75rem; justify-content: space-between;
+  font-family: var(--t-label);
+  font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700;
+  color: var(--p-mute);
+}
+
+.frame__note {
+  border-top: 1px solid var(--c-line);
+  margin-top: 0; padding: 0.7rem 0 0;
+  font-size: 12.5px; color: var(--c-mute); line-height: 1.55; max-width: 78ch;
+}
+
+/* ---------------- detail panes ---------------- */
+
+.detail { margin-top: var(--sec); }
+.detail__cols { display: grid; gap: clamp(2rem, 4vw, 3rem); }
+@media (min-width: 900px) { .detail__cols { grid-template-columns: 1fr 1fr; gap: clamp(2.5rem, 4vw, 4rem); } }
+
+.pane__head { border-top: 1px solid var(--c-line); padding-top: 0.7rem; }
+.pane__name { font-size: clamp(1.25rem, 2.6vw, 1.7rem); font-weight: 600; letter-spacing: -0.02em; margin-top: 0.55rem; }
+.pane__mood { font-size: 14px; color: var(--c-mute); margin-top: 0.25rem; }
+.pane__pitch { font-size: 15.5px; line-height: 1.6; margin-top: 1.1rem; max-width: 56ch; }
+
+.swatches { display: grid; grid-template-columns: 1fr; margin-top: 1.5rem; border-top: 1px solid var(--c-hair); }
+@media (min-width: 520px) { .swatches { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 900px) and (max-width: 1200px) { .swatches { grid-template-columns: 1fr; } }
+@media (min-width: 1201px) { .swatches { grid-template-columns: 1fr 1fr; } }
+.sw { border-bottom: 1px solid var(--c-hair); padding: 0.9rem 1.25rem 1.1rem 0; }
+@media (min-width: 520px) { .sw:nth-child(even) { padding-left: 1.25rem; border-left: 1px solid var(--c-hair); } }
+@media (min-width: 900px) and (max-width: 1200px) { .sw:nth-child(even) { padding-left: 0; border-left: 0; } }
+.sw__chip { height: 52px; border: 1px solid rgba(0,0,0,0.2); }
+.sw__top { display: flex; align-items: baseline; justify-content: space-between; gap: 0.75rem; margin-top: 0.6rem; }
+.sw__name { font-size: 13.5px; font-weight: 600; }
+.sw__hex { font-family: var(--c-mono); font-size: 12px; letter-spacing: 0.02em; color: var(--c-mute); }
+.sw__role { font-size: 12px; color: var(--c-ink); margin-top: 0.35rem; line-height: 1.5; }
+.sw__use { font-size: 12px; color: var(--c-mute); margin-top: 0.35rem; line-height: 1.55; }
+.sw__flag {
+  display: inline-block; margin-top: 0.5rem;
+  font-size: 9.5px; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 700;
+  color: var(--c-ink); border-top: 1px solid var(--c-line); padding-top: 0.35rem;
+}
+
+.spec-list { margin-top: 1.5rem; border-top: 1px solid var(--c-hair); }
+.spec-row { border-bottom: 1px solid var(--c-hair); padding: 0.85rem 0 0.95rem; display: grid; gap: 0.25rem; }
+@media (min-width: 620px) { .spec-row { grid-template-columns: 116px 1fr; gap: 1.25rem; } }
+.spec-row dt { font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; color: var(--c-mute); padding-top: 0.25rem; }
+.spec-row dd { font-size: 13.5px; line-height: 1.6; color: var(--c-ink); }
+.spec-row dd b { font-weight: 600; }
+.spec-row dd .stack { font-family: var(--c-mono); font-size: 11.5px; color: var(--c-mute); display: block; margin-top: 0.3rem; line-height: 1.5; word-break: break-word; }
+
+.risk { margin-top: 1.5rem; border-top: 1px solid var(--c-line); padding-top: 0.7rem; }
+.risk__body { font-size: 13.5px; line-height: 1.65; color: var(--c-ink); margin-top: 0.8rem; max-width: 60ch; }
+
+details { margin-top: 1.1rem; border-top: 1px solid var(--c-hair); }
+summary {
+  cursor: pointer; padding: 0.7rem 0 0.75rem; list-style: none;
+  font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; color: var(--c-mute);
+}
+summary::-webkit-details-marker { display: none; }
+summary::after { content: " +"; font-weight: 700; }
+details[open] summary::after { content: " –"; }
+summary:hover { color: var(--c-ink); }
+details p { font-size: 13.5px; line-height: 1.65; color: var(--c-mute); max-width: 62ch; padding-bottom: 1rem; margin: 0; }
+
+/* ---------------- summary card ---------------- */
+
+.pick { margin-top: var(--sec); }
+.pick__card { border: 1px solid var(--c-line); background: var(--c-panel); padding: clamp(1.25rem, 3vw, 2.25rem); margin-top: 1.1rem; }
+.pick__grid { display: grid; gap: 1.5rem; }
+@media (min-width: 720px) { .pick__grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; } }
+.pick__h { font-size: 10px; letter-spacing: 0.17em; text-transform: uppercase; font-weight: 700; color: var(--c-mute); border-top: 1px solid var(--c-hair); padding-top: 0.6rem; }
+.pick__v { font-size: clamp(1.15rem, 2.4vw, 1.5rem); font-weight: 600; letter-spacing: -0.015em; margin-top: 0.4rem; }
+.pick__d { font-size: 13.5px; color: var(--c-mute); margin-top: 0.3rem; line-height: 1.55; }
+.pick__hexes { margin-top: 1.5rem; border-top: 1px solid var(--c-hair); padding-top: 0.9rem; }
+.pick__hexlist { display: flex; flex-wrap: wrap; gap: 0.4rem 0.75rem; margin-top: 0.6rem; font-family: var(--c-mono); font-size: 12px; color: var(--c-ink); }
+.pick__hexlist span { display: inline-flex; align-items: center; gap: 0.4rem; }
+.pick__hexlist i { width: 13px; height: 13px; display: inline-block; border: 1px solid rgba(0,0,0,0.25); }
+.pick__actions { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.75rem 1rem; align-items: center; }
+.btn {
+  -webkit-appearance: none; appearance: none; font: inherit; cursor: pointer;
+  background: var(--c-ink); color: var(--c-inv-fg); border: 1px solid var(--c-ink);
+  padding: 0.7rem 1.2rem;
+  font-size: 11.5px; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 700;
+}
+.btn--ghost { background: transparent; color: var(--c-ink); border-color: var(--c-line); }
+.btn--ghost:hover { background: var(--c-ink); color: var(--c-inv-fg); border-color: var(--c-ink); }
+.pick__status { font-size: 12.5px; color: var(--c-mute); }
+.pick__text {
+  width: 100%; margin-top: 1rem; font-family: var(--c-mono); font-size: 12px; line-height: 1.6;
+  border: 1px solid var(--c-line); background: #FFF; color: var(--c-ink);
+  padding: 0.9rem; min-height: 190px; resize: vertical;
+}
+.pick__text[hidden] { display: none; }
+
+/* ---------------- honest notes + foot ---------------- */
+
+.notes { margin-top: var(--sec); }
+.notes__grid { display: grid; gap: 0; border-top: 1px solid var(--c-line); }
+@media (min-width: 820px) { .notes__grid { grid-template-columns: repeat(3, 1fr); } }
+.note { padding: 1rem 0 1.2rem; border-bottom: 1px solid var(--c-hair); }
+@media (min-width: 820px) {
+  .note { padding-right: 2rem; }
+  .note + .note { padding-left: 2rem; border-left: 1px solid var(--c-hair); }
+}
+.note h3 { font-size: 13px; margin-bottom: 0.4rem; }
+.note p { font-size: 13px; color: var(--c-mute); margin: 0; line-height: 1.6; }
+
+.foot {
+  margin-top: var(--sec);
+  border-top: 1px solid var(--c-line);
+  padding: 0.9rem 0 clamp(2.5rem, 6vw, 4rem);
+  display: flex; flex-wrap: wrap; gap: 0.4rem 2rem; justify-content: space-between;
+  font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 700; color: var(--c-mute);
+}
+
+/* ---------------- mobile stepper bar ---------------- */
+
+.bar { display: none; }
+@media (max-width: 1039px) {
+  body { padding-bottom: 7.5rem; }
+  .bar {
+    display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;
+    background: var(--c-bg); border-top: 1px solid var(--c-ink);
+    padding: 0.4rem var(--gut) calc(0.4rem + env(safe-area-inset-bottom, 0px));
+  }
+  .bar__row { display: grid; grid-template-columns: 42px 1fr 42px; align-items: center; gap: 0.5rem; }
+  .bar__row + .bar__row { border-top: 1px solid var(--c-hair); }
+  .bar__mid { min-width: 0; padding: 0.1rem 0; }
+  .bar__k { font-size: 9px; letter-spacing: 0.17em; text-transform: uppercase; font-weight: 700; color: var(--c-mute); }
+  .bar__v { font-size: 14px; font-weight: 600; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .step {
+    -webkit-appearance: none; appearance: none; font: inherit; cursor: pointer;
+    height: 40px; width: 42px; line-height: 1;
+    background: transparent; color: var(--c-ink); border: 1px solid var(--c-line);
+    font-size: 17px; font-weight: 600;
+  }
+  .step:hover { background: var(--c-ink); color: var(--c-inv-fg); }
+}
+
+/* ---------------- print ---------------- */
+
+@media print {
+  body { background: #fff; padding-bottom: 0; }
+  .rail, .bar, .jump, .pick__actions, .skip { display: none !important; }
+  .frame { border-color: #999; }
+  .studio__grid { display: block; }
+  details { display: none; }
+}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#stage">Skip to the preview</a>
+
+<!-- ============================ MASTHEAD ============================ -->
+<header class="top">
+  <div class="wrap">
+    <div class="top__kicker eyebrow">
+      <span>DFB — Dance Floor Bros</span>
+      <span>Brand studio — mix &amp; match</span>
+    </div>
+    <h1>Pick a colour. Pick a typeface. They are two separate decisions.</h1>
+    <p class="top__lede">You said some of the five directions felt similar. You were right — four of the five sat on a light background, and all five used the same kind of type pairing. So the range has been widened on both axes and then <strong>pulled apart</strong>, so you can decide independently what you like about the colour, what you like about the lettering, and what you like about the overall attitude.</p>
+    <p class="top__sub">Eight palettes × eight typography systems = <strong>64 combinations</strong>. Every one renders live below. Start from one of the five recommended pairings if you want a designed starting point, then change either side.</p>
+
+    <div class="new">
+      <div class="new__grid">
+        <div class="new__cell">
+          <h3>Three new palettes, chosen to break the sameness</h3>
+          <p><b>Blue Hour</b> sits in the mid-tone middle — neither a light page nor a dark one — and is the only cool option. <b>Marquee</b> uses one strong colour at real scale instead of a 2% accent. <b>Panel</b> removes colour entirely: black, white, and nothing else, because that is literally what you rent.</p>
+        </div>
+        <div class="new__cell">
+          <h3>Eight typography systems, not one pattern</h3>
+          <p>The original five all paired a display serif over a sans. These eight include an all-serif setting, a single-grotesque Swiss setting, an inverted sans-over-serif editorial setting, condensed event-signage capitals, and extended capitals that echo the shape of a floor.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============================ STUDIO ============================ -->
+<main class="studio">
+  <div class="wrap">
+    <div class="studio__grid">
+
+      <!-- ---------------- controls rail ---------------- -->
+      <div class="rail">
+
+        <section class="grp" aria-labelledby="h-presets">
+          <div class="grp__head">
+            <h2 class="eyebrow" id="h-presets">Recommended pairings</h2>
+            <span class="eyebrow">5</span>
+          </div>
+          <p class="grp__note">Our opinion — a palette and a typeface chosen together so each one is at its strongest. One click sets both. Then change either side; that part is yours.</p>
+          <div class="presets" id="presets"></div>
+          <button class="reset" type="button" id="reset">Back to the first pairing</button>
+        </section>
+
+        <section class="grp" aria-labelledby="h-pal">
+          <div class="grp__head">
+            <h2 class="eyebrow" id="h-pal">Colour</h2>
+            <span class="eyebrow">8</span>
+          </div>
+          <p class="grp__note">The four bars show, in order: page background, text, accent, and section fill.</p>
+          <div class="chips" id="palChips" role="group" aria-labelledby="h-pal"></div>
+        </section>
+
+        <section class="grp" aria-labelledby="h-type">
+          <div class="grp__head">
+            <h2 class="eyebrow" id="h-type">Typography</h2>
+            <span class="eyebrow">8</span>
+          </div>
+          <p class="grp__note">Each name is set in its own substitute face. The real families are named in full under the preview.</p>
+          <div class="chips" id="typeChips" role="group" aria-labelledby="h-type"></div>
+        </section>
+
+      </div>
+
+      <!-- ---------------- stage ---------------- -->
+      <div>
+        <section id="stage" aria-labelledby="h-stage">
+          <div class="stage__head">
+            <h2 class="eyebrow" id="h-stage">Live preview</h2>
+            <span class="eyebrow" id="comboCount">Combination — of 64</span>
+          </div>
+          <p class="stage__now" aria-live="polite" id="nowLine"></p>
+          <p class="stage__meta" id="nowMeta"></p>
+
+          <div class="frame">
+            <div class="pv" id="pv">
+
+              <div class="pv-nav">
+                <span class="pv-mark">DFB</span>
+                <span class="pv-links">
+                  <span>Floors</span><span>Gallery</span><span>About</span><span>Contact</span>
+                </span>
+                <span class="pv-navcta">Request a quote</span>
+              </div>
+
+              <div class="pv-hero">
+                <p class="pv-eyebrow">Kansas City &amp; beyond</p>
+                <h1 class="pv-h1">Black, white, and wood — in any combination.</h1>
+                <p class="pv-deck">Floors from 18 × 18 to 24 × 24, built from three-foot panels. Delivered, installed, and insured.</p>
+                <a class="pv-btn" href="#stage" onclick="return false;">Request a quote</a>
+              </div>
+
+              <div class="pv-plate"><span>Photography — your install goes here</span></div>
+              <p class="pv-cap">In the finished site this is a photograph from one of your own installs — StoneBriar Farm, Whiskey Ridge, The Ridge, The Venue at Stockton Lake.</p>
+
+              <div class="pv-band">
+                <p class="pv-band-label">Specifications</p>
+                <dl class="pv-specs">
+                  <div><dt>Sizes</dt><dd>18 × 18 — 24 × 24</dd></div>
+                  <div><dt>Panel</dt><dd>3-foot squares</dd></div>
+                  <div><dt>Finishes</dt><dd>Black · White · Wood</dd></div>
+                  <div><dt>Centre graphics</dt><dd>3 × 4 · 5 × 6 · 6 × 6</dd></div>
+                </dl>
+              </div>
+
+              <div class="pv-text">
+                <p class="pv-eyebrow">Custom floors</p>
+                <h2 class="pv-h2">A graphic in the middle of the floor</h2>
+                <p class="pv-body">A vinyl graphic is applied to the centre of the floor in one of three sizes — 3 × 4, 5 × 6, or 6 × 6. One has been turned around in three days.</p>
+                <p class="pv-body">Delivery and installation are included, to one placement. Floors are installed indoors, on level surfaces.</p>
+                <p class="pv-small">An 18 × 18 floor is thirty-six panels. A 24 × 24 floor is sixty-four.</p>
+              </div>
+
+              <div class="pv-foot">
+                <span>DFB — Kansas City</span>
+                <span>Insured</span>
+                <span>Quote on request</span>
+              </div>
+
+            </div>
+          </div>
+          <p class="frame__note" id="frameNote"></p>
+          <a class="jump" href="#detail">Read the notes on this combination ↓</a>
+        </section>
+
+        <!-- ---------------- detail ---------------- -->
+        <section class="detail" id="detail">
+          <div class="detail__cols">
+
+            <div>
+              <div class="pane__head">
+                <span class="eyebrow">The colour you are looking at</span>
+                <h2 class="pane__name" id="palName"></h2>
+                <p class="pane__mood" id="palMood"></p>
+              </div>
+              <p class="pane__pitch" id="palPitch"></p>
+              <div class="swatches" id="palSwatches"></div>
+              <div class="risk">
+                <span class="eyebrow">What this one costs you</span>
+                <p class="risk__body" id="palRisk"></p>
+              </div>
+              <details>
+                <summary>Why it was drawn this way</summary>
+                <p id="palWhy"></p>
+              </details>
+            </div>
+
+            <div>
+              <div class="pane__head">
+                <span class="eyebrow">The lettering you are looking at</span>
+                <h2 class="pane__name" id="typeName"></h2>
+                <p class="pane__mood" id="typeFeel"></p>
+              </div>
+              <p class="pane__pitch" id="typePitch"></p>
+              <dl class="spec-list" id="typeSpecs"></dl>
+              <div class="risk">
+                <span class="eyebrow">What this one costs you</span>
+                <p class="risk__body" id="typeRisk"></p>
+              </div>
+              <details>
+                <summary>Why it was chosen for this product</summary>
+                <p id="typeWhy"></p>
+              </details>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ---------------- what you picked ---------------- -->
+        <section class="pick" aria-labelledby="h-pick">
+          <div class="stage__head">
+            <h2 class="eyebrow" id="h-pick">What you picked</h2>
+            <span class="eyebrow">Screenshot this, or copy it</span>
+          </div>
+          <div class="pick__card">
+            <div class="pick__grid">
+              <div>
+                <p class="pick__h">Colour</p>
+                <p class="pick__v" id="sumPal"></p>
+                <p class="pick__d" id="sumPalMood"></p>
+              </div>
+              <div>
+                <p class="pick__h">Typography</p>
+                <p class="pick__v" id="sumType"></p>
+                <p class="pick__d" id="sumTypeFam"></p>
+              </div>
+            </div>
+            <div class="pick__hexes">
+              <p class="pick__h" style="border-top:0;padding-top:0;">Hex values</p>
+              <div class="pick__hexlist" id="sumHexes"></div>
+            </div>
+            <div class="pick__actions">
+              <button class="btn" type="button" id="copyBtn">Copy this summary</button>
+              <button class="btn btn--ghost" type="button" id="showBtn">Show as plain text</button>
+              <span class="pick__status" id="copyStatus" role="status" aria-live="polite"></span>
+            </div>
+            <textarea class="pick__text" id="pickText" hidden readonly aria-label="Plain-text summary of the selected combination"></textarea>
+          </div>
+        </section>
+
+        <!-- ---------------- honest notes ---------------- -->
+        <section class="notes" aria-labelledby="h-notes">
+          <h2 class="eyebrow" id="h-notes" style="border-top:1px solid var(--c-line);padding-top:0.7rem;display:block;">Three things to know before you decide</h2>
+          <div class="notes__grid" style="margin-top:1rem;">
+            <div class="note">
+              <h3>Colour is not reliable on a screen</h3>
+              <p>The same hex value looks warmer on one phone than on another, and Night Shift or True Tone will shift it again. Treat these as close, not exact. Anything you shortlist gets checked on a calibrated screen and in print before it is locked.</p>
+            </div>
+            <div class="note">
+              <h3>The fonts here are stand-ins</h3>
+              <p>Nothing is downloaded, so every option is drawn with the nearest typeface already on your device. The real families are named in full for each option. The real thing will be sharper and better proportioned than what you see here — never worse.</p>
+            </div>
+            <div class="note">
+              <h3>This is a demonstration, not a layout</h3>
+              <p>The fragment above exists to show colour and lettering doing real work at real sizes. It is not the site design. And no palette is final until it has been put next to your actual event photography — the photographs are the deciding vote.</p>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="foot">
+      <span>DFB — brand studio</span>
+      <span>Colour and type demonstration</span>
+      <span>Prepared for Shayan Karimy</span>
+    </div>
+  </div>
+</main>
+
+<!-- ---------------- mobile stepper ---------------- -->
+<div class="bar" id="bar" aria-label="Step through combinations">
+  <div class="bar__row">
+    <button class="step" type="button" id="palPrev" aria-label="Previous colour">‹</button>
+    <div class="bar__mid">
+      <div class="bar__k">Colour</div>
+      <div class="bar__v" id="barPal"></div>
+    </div>
+    <button class="step" type="button" id="palNext" aria-label="Next colour">›</button>
+  </div>
+  <div class="bar__row">
+    <button class="step" type="button" id="typePrev" aria-label="Previous typography">‹</button>
+    <div class="bar__mid">
+      <div class="bar__k">Type</div>
+      <div class="bar__v" id="barType"></div>
+    </div>
+    <button class="step" type="button" id="typeNext" aria-label="Next typography">›</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ==========================================================
+     DATA — palettes
+     Every hex, role, and usage note below is carried through
+     from the palette documentation unchanged.
+     ========================================================== */
+
+  var PALETTES = [
+    {
+      id: "wall-label",
+      name: "Wall Label",
+      mood: "Museum-quiet, precise, dimension-led",
+      plainPitch: "A gallery wall — nothing on the page has a colour of its own, so the only colour anyone sees is your wood floor in the photos.",
+      rationale: "The ground is measured to sit just under a lit white floor, so white panels separate instead of vanishing. Ink and Graphite are warm-cast so nothing on the page reads cooler than the wood. With colour held near zero, the wood in every photograph is the only chroma on screen — which is what lets floor dimensions be set enormous without competing for attention.",
+      risk: "It is deliberately unmemorable AS COLOUR. Nobody will ever recall a DFB colour because there isn't one to recall — memorability has to be carried entirely by the new logo, the typography, and photo discipline. It flatters good photography and exposes weak photography without mercy. And of the eight, it is the closest to a default clean-startup look if the typography isn't strong enough to carry it.",
+      vars: {
+        bg: "#F7F6F4", fg: "#1C1A17", body: "#1C1A17", mute: "#5D584F",
+        accent: "#7E6140", btnBg: "#1C1A17", btnFg: "#F7F6F4",
+        plate: "#EDEAE4", plateFg: "#5D584F", hair: "#DCD8D0", rule: "#8E8880",
+        band: "#EDEAE4", bandFg: "#1C1A17", bandBody: "#1C1A17", bandMute: "#5D584F", bandAccent: "#7E6140"
+      },
+      colors: [
+        { hex: "#F7F6F4", name: "Paper", role: "Page background", usage: "A near-white carrying a trace of warmth, chosen to sit fractionally BELOW a lit white floor panel. Pure #FFFFFF would make white product dissolve into the page." },
+        { hex: "#1C1A17", name: "Ink", role: "All headings, body text, primary button fill", usage: "Warm near-black, not blue-black — a cool black on a warm page is the standard tell of an unresolved palette. 16.08:1 on Paper." },
+        { hex: "#5D584F", name: "Graphite", role: "Secondary text, captions, spec-table labels", usage: "6.54:1 on Paper, 5.88:1 on Plate. Safe for body copy at any size." },
+        { hex: "#7E6140", name: "Oak", role: "Hairline rules, small-caps eyebrows, link underlines", usage: "The only colour in the system. 5.30:1 on Paper so it is legal as text, but the discipline is to keep it near 2% of any page." },
+        { hex: "#EDEAE4", name: "Plate", role: "Section fills, spec-table zebra rows", usage: "Exactly one step down from Paper. Any deeper and the page starts to stripe." },
+        { hex: "#DCD8D0", name: "Hair", role: "Decorative dividers only", usage: "1.32:1 — decorative rules only, never text. Where a hairline is the ONLY edge of a form input, WCAG 1.4.11 requires 3:1; use #8E8880 (3.25:1) there instead." },
+        { hex: "#A8A399", name: "Stone", role: "Placeholders and disabled controls", usage: "Never text — 2.32:1 fails AA. Non-text only." }
+      ]
+    },
+    {
+      id: "ink-and-oak",
+      name: "Ink & Oak",
+      mood: "Evening room, lights down, warm",
+      plainPitch: "The site looks like the room after the lights go down, so a white floor glows on the screen the way it does at the reception.",
+      rationale: "A near-black ground makes a white floor panel the single brightest thing on screen, so the product photograph becomes the light source — which is literally what happens in the room when the reception lights go down. The black is warm rather than blue, so the page and the venue light agree instead of arguing. And the single accent is pulled from the wood's own range, meaning the one colour on the page is the product's colour rather than a competing one.",
+      risk: "Dark sites are unforgiving of mixed-quality photography — anything shot flat or in daylight looks pasted on. Dark grounds also render inconsistently across phones with Night Shift and True Tone on. A long quote form on black is harder to read for older eyes, and parents of the couple are frequently the ones filling it in. It is also the hardest of the eight to print or paste into a venue's own materials.",
+      vars: {
+        bg: "#14110F", fg: "#F2EFE9", body: "#CFC8C0", mute: "#9A928B",
+        accent: "#C48D57", btnBg: "#C48D57", btnFg: "#14110F",
+        plate: "#1E1A17", plateFg: "#9A928B", hair: "#332C27", rule: "#6A625A",
+        band: "#1E1A17", bandFg: "#F2EFE9", bandBody: "#CFC8C0", bandMute: "#9A928B", bandAccent: "#C48D57"
+      },
+      colors: [
+        { hex: "#14110F", name: "Night", role: "Page background", usage: "Warm near-black. The page is darker than almost any venue photo, so a white floor becomes the brightest object on screen." },
+        { hex: "#F2EFE9", name: "Bone", role: "Headings and primary text", usage: "16.38:1 on Night. Warm-cast white so it agrees with the venue light rather than looking blue against it." },
+        { hex: "#CFC8C0", name: "Body", role: "Body copy and paragraph text", usage: "11.35:1 on Night, 10.43:1 on Plate. Deliberately not pure white — full-strength white body copy on black glares." },
+        { hex: "#9A928B", name: "Mute", role: "Captions, timestamps, table labels", usage: "6.14:1 on Night, 5.64:1 on Plate. Still clears AA body, so it can carry real text." },
+        { hex: "#C48D57", name: "Oak", role: "Accent and primary button fill", usage: "6.53:1 on Night; button label #14110F on it is also 6.53:1. Drawn from the wood's own range so the one colour on the page is the product's colour." },
+        { hex: "#1E1A17", name: "Plate", role: "Raised panels, cards, spec tables", usage: "One step up from Night — the only way to build hierarchy on a dark ground without introducing a second colour." },
+        { hex: "#332C27", name: "Hair", role: "Decorative dividers and card edges", usage: "1.37:1 — decoration only. For a form-field boundary use #6A625A (3.14:1) to clear WCAG 1.4.11." }
+      ]
+    },
+    {
+      id: "quarry",
+      name: "Quarry",
+      mood: "Warm stone, grounded, unhurried",
+      plainPitch: "Warm stone and clay — it feels like the building rather than like a website, and nothing on it out-colours your wood.",
+      rationale: "A warm stone ground sits a shade further from white than Wall Label, which increases separation for white panels rather than reducing it. It also puts a masonry association under the brand — limestone, plaster, barn board — which is the material language of the venues themselves. Clay is a brown taken from a duller, redder part of the wheel than the wood, so the accent reads as a neighbouring material instead of a rival to it.",
+      risk: "Warm beige-and-brown is heavily worked ground in wedding-vendor branding, so of the eight this is the most likely to resemble something you have already seen from a competitor. It also has the narrowest tonal range of the light options, so hierarchy has to be carried almost entirely by type size — if the typography is weak, this direction goes flat fast. And it is warm enough that a cool-cast photo (a daylight ceremony, a white tent) will look wrong against it.",
+      vars: {
+        bg: "#F2EDE6", fg: "#1C1A17", body: "#1C1A17", mute: "#615950",
+        accent: "#6E4C39", btnBg: "#1C1A17", btnFg: "#F2EDE6",
+        plate: "#E4DCD0", plateFg: "#615950", hair: "#D3CABB", rule: "#8A7C6E",
+        band: "#E4DCD0", bandFg: "#1C1A17", bandBody: "#1C1A17", bandMute: "#615950", bandAccent: "#6E4C39"
+      },
+      colors: [
+        { hex: "#F2EDE6", name: "Stone", role: "Page background", usage: "A full step warmer and deeper than Wall Label's paper, which gives white product MORE separation, not less." },
+        { hex: "#1C1A17", name: "Basalt", role: "All text and primary buttons", usage: "14.91:1 on Stone. Warm near-black — a cool black on a page this warm is the tell of an unresolved palette." },
+        { hex: "#615950", name: "Slate", role: "Secondary text and captions", usage: "5.91:1 on Stone, 5.06:1 on Plate." },
+        { hex: "#6E4C39", name: "Clay", role: "Accent, eyebrows, rules, link underlines", usage: "6.54:1 on Stone, 5.61:1 on Plate. A duller, redder brown than the wood, so it reads as a related material rather than a competing one." },
+        { hex: "#E4DCD0", name: "Plate", role: "Section fills and table zebra", usage: "The single step down. This palette has the least tonal room of the light options — a second step makes the page muddy." },
+        { hex: "#D3CABB", name: "Hair", role: "Decorative dividers only", usage: "1.39:1 — decoration only. For a form-field boundary use #8A7C6E (3.48:1)." }
+      ]
+    },
+    {
+      id: "masthead",
+      name: "Masthead",
+      mood: "Editorial, authoritative, one red",
+      plainPitch: "It reads like a magazine — serious type on warm paper, with one deep red used so sparingly it feels expensive.",
+      rationale: "Wine red at roughly 2% of the page is close to the smallest amount of colour that still gives the brand something to own. It sits far enough around the wheel from wood-amber that it never competes, and deep enough that it reads as ink rather than as a highlight. Editorial typography plus a single disciplined red reads as an established business with a point of view — which is precisely the argument that justifies quote-only pricing.",
+      risk: "Red is the hardest colour to keep disciplined. The moment a second person touches the site, 2% becomes 20% and it turns into a discount banner — this direction needs a written rule, not good intentions. Deep wine also carries formal, traditional associations that skew older; a couple after something playful will read it as stuffy. And claret sits close enough to red and magenta uplighting that a photo lit that way will fight the accent instead of ignoring it.",
+      vars: {
+        bg: "#F5F2ED", fg: "#14110F", body: "#14110F", mute: "#5C544E",
+        accent: "#6E1F22", btnBg: "#6E1F22", btnFg: "#F5F2ED",
+        plate: "#EAE4DA", plateFg: "#5C544E", hair: "#D8D0C4", rule: "#8A8079",
+        band: "#EAE4DA", bandFg: "#14110F", bandBody: "#14110F", bandMute: "#5C544E", bandAccent: "#6E1F22"
+      },
+      colors: [
+        { hex: "#F5F2ED", name: "Paper", role: "Page background", usage: "Warm newsprint-adjacent paper. The warmth is what keeps the wine red from reading as a sale banner." },
+        { hex: "#14110F", name: "Ink", role: "Headings and body text", usage: "16.84:1 on Paper." },
+        { hex: "#5C544E", name: "Graphite", role: "Secondary text, decks, captions", usage: "6.64:1 on Paper, 5.86:1 on Plate." },
+        { hex: "#6E1F22", name: "Claret", role: "Accent and primary button fill", usage: "9.99:1 on Paper; label #F5F2ED on the button is also 9.99:1. Held to roughly 2% of any page — rules, eyebrows, one button." },
+        { hex: "#CE7A80", name: "Claret Light", role: "Accent on dark grounds and photo overlays ONLY", usage: "6.02:1 on #14110F. Measures 2.80:1 on Paper — below AA even for large text, so it is not legal as text on the light page. Dark grounds only." },
+        { hex: "#EAE4DA", name: "Plate", role: "Section fills and pull-quote grounds", usage: "Holds Graphite at 5.86:1 and Claret at 8.82:1." },
+        { hex: "#8A8079", name: "Rule Grey", role: "Table rules, input underlines, disabled controls", usage: "3.45:1 on Paper — legal as a UI boundary under WCAG 1.4.11, NOT legal as body text. Never set copy in it." },
+        { hex: "#D8D0C4", name: "Hair", role: "Decorative dividers only", usage: "1.37:1 — decoration only. Use Rule Grey wherever the line is a real form-field edge." }
+      ]
+    },
+    {
+      id: "patina",
+      name: "Patina",
+      mood: "Heritage, restrained, one green",
+      plainPitch: "Warm off-white with one deep green-teal used lightly — enough to be a colour you own, not enough to fight the floor.",
+      rationale: "Green-teal is the accent hue furthest from wood-amber that still reads as an aged material rather than a tech colour, so it can carry a brand without ever entering the product's territory. Holding it near 5% keeps the floors dominant. The scrim being a teal-black rather than a neutral black is the quiet move here: the darkening layer behind headline text over a photo makes the string lights underneath read warmer, where a neutral scrim would grey them out.",
+      risk: "At 5%, some people will not register the brand as having a colour at all — it can land in the same no-colour place as Wall Label while still costing the discipline of maintaining an accent. The heritage/apothecary association may read older than your buyer. And teal is the accent most likely to clash outright if a venue uses blue-green uplighting, which is common. It also shipped with two real accessibility defects, both corrected here — a sign this palette has the tightest tolerances of the five and needs the most careful hand.",
+      vars: {
+        bg: "#F4F1EC", fg: "#101312", body: "#101312", mute: "#635E57",
+        accent: "#15625A", btnBg: "#15625A", btnFg: "#FFFFFF",
+        plate: "#E4DED4", plateFg: "#635E57", hair: "#CFC7BA", rule: "#8F8980",
+        band: "#E4DED4", bandFg: "#101312", bandBody: "#101312", bandMute: "#635E57", bandAccent: "#15625A"
+      },
+      colors: [
+        { hex: "#F4F1EC", name: "Off-white", role: "Page background", usage: "Warm off-white, marginally cooler than Quarry's stone so the green-teal stays clean rather than going olive." },
+        { hex: "#101312", name: "Ink", role: "Headings and body text", usage: "16.58:1 on the page. A green-black rather than a neutral one, so it belongs to the accent family." },
+        { hex: "#635E57", name: "Graphite", role: "Secondary text and captions", usage: "5.70:1 on the page, 4.80:1 on Plate. CORRECTION: the shipped value #6B6660 measured 4.25:1 on the plate, below AA body. #635E57 is the nearest value that clears it on both grounds and is what is used here." },
+        { hex: "#15625A", name: "Verdigris", role: "Accent and primary button fill", usage: "6.37:1 on the page, 5.36:1 on Plate; white label on the button is 7.18:1. Held to roughly 5% of any page." },
+        { hex: "#0C3D38", name: "Verdigris Deep", role: "Pressed states and the scrim behind headline text over photos", usage: "White on it is 12.07:1. A teal-black rather than a neutral one, so the darkening layer makes the amber lights underneath read warmer instead of greyer." },
+        { hex: "#E4DED4", name: "Plate", role: "Section fills and pull-quote grounds", usage: "CORRECTION: the shipped file used this same value for BOTH plate and hairline, so a rule drawn inside a plate was mathematically invisible (1.00:1). This stays the plate; hairlines moved to #CFC7BA." },
+        { hex: "#CFC7BA", name: "Hair", role: "Decorative dividers only", usage: "Visibly separates from both the page and the plate. For a form-field boundary use #8F8980 (3.08:1) to clear WCAG 1.4.11." },
+        { hex: "#B98D5C", name: "Oak", role: "RESERVED — never a UI colour", usage: "Roughly where the wood floor and warm venue light land. Documented so no future designer ever picks a colour in this range. It exists to be obeyed, not used." }
+      ]
+    },
+    {
+      id: "blue-hour",
+      name: "Blue Hour",
+      mood: "Dusk, evening, cool and composed",
+      plainPitch: "The site sits at dusk — a mid-dark blue-grey — so your warm evening photos look warmer, and a black floor and a white floor both look good on the same page.",
+      rationale: "Two things make this genuinely new rather than a hue change. First, the value: at L* 35 it is neither near-white nor near-black, and that middle is the only ground where BOTH product finishes work at once — a white panel reads bright against it and a black panel reads as a solid form, where a near-white page lets black dominate and a near-black page lets white dominate. Second, the temperature: it is the only cool option, and warm venue photography reads noticeably warmer when surrounded by cool, because the eye judges warmth relative to what's around it. No hue in the palette appears anywhere in the product, so it structurally cannot compete with the wood.",
+      risk: "Mid-tone grounds are the hardest to keep accessible — there is no room for a third text tone, so every level of hierarchy has to be built from size, weight and spacing, and one careless coloured element breaks the whole thing. Cool also cuts against the warm emotional cues of the category: a bride picturing candlelight may read this as corporate rather than romantic, and blue-grey is one nudge toward navy away from generic software branding. It is also the direction most affected by a phone with Night Shift on, since the cool cast is the concept rather than a detail.",
+      vars: {
+        bg: "#465462", fg: "#F2F5F7", body: "#C9D2DA", mute: "#C9D2DA",
+        accent: "#B4CFE3", btnBg: "#F2F5F7", btnFg: "#465462",
+        plate: "#2A333C", plateFg: "#C9D2DA", hair: "#A2AFBC", rule: "#A2AFBC",
+        band: "#2A333C", bandFg: "#F2F5F7", bandBody: "#C9D2DA", bandMute: "#C9D2DA", bandAccent: "#B4CFE3"
+      },
+      colors: [
+        { hex: "#465462", name: "Dusk", role: "Page background", usage: "NEW TERRITORY: a mid-tone cool slate at L* 35. Every other direction here sits at either L* 94–97 or L* 5–21 — this is the empty middle. Neither light mode nor dark mode." },
+        { hex: "#2A333C", name: "Night", role: "Bands, footer, and the scrim behind headline text over photos", usage: "L* 21. One deep step down from Dusk, used to divide the page without introducing a second hue." },
+        { hex: "#F2F5F7", name: "Chalk", role: "Headings, primary text, and the inverted button fill", usage: "7.09:1 on Dusk, 11.71:1 on Night. As a button fill it takes Dusk as its label colour at 7.09:1." },
+        { hex: "#C9D2DA", name: "Mist", role: "Body copy and secondary text", usage: "5.07:1 on Dusk, 8.38:1 on Night. This is the ONLY secondary tone the palette permits — a mid-tone ground leaves no room for a third level." },
+        { hex: "#B4CFE3", name: "Ice", role: "Links, small-caps labels, active and focus states", usage: "4.80:1 on Dusk, 7.92:1 on Night. Clears AA at body size, so small uppercase labels are safe in it." },
+        { hex: "#A2AFBC", name: "Rule", role: "Hairlines, dividers, and form-field boundaries", usage: "3.47:1 on Dusk — clears the 3:1 WCAG 1.4.11 requirement for a field edge. Never text." },
+        { hex: "#DDE4EA", name: "Haze", role: "Alternate light ground (the mix-and-match swap)", usage: "If you like the colour but not the darkness, swap the ground to Haze and the text to Night (9.99:1) — same hues, light page. This is the one direction that ships with a working light variant." }
+      ]
+    },
+    {
+      id: "marquee",
+      name: "Marquee",
+      mood: "Confident, saturated, black-tie",
+      plainPitch: "One strong colour, used big — so people remember a DFB colour, instead of remembering nothing.",
+      rationale: "This is the only direction with a real colour used at real quantity rather than as a 2–5% accent, so it answers the one thing the other seven structurally cannot give you: a colour people can point at and call yours. Indigo works specifically because it shares nothing with the product — the floors are neutral black, neutral white and amber wood, and indigo contains none of those hues, so it can never compete for the same job. Sitting on the cool side opposite the venue's amber light, warm photography intensifies against it rather than blending into it. And at L* 29 a large indigo field reads as a solid block of material, not as a bright screen.",
+      risk: "A saturated brand colour is the least flexible choice on the table. It will not gracefully absorb whatever colour the new DFB logo lands on — it will fight it, so the logo and this palette have to be decided together rather than in sequence. Saturated colours also date faster than neutrals: treat this as a five-year palette, not a fifteen-year one. Indigo drifting even slightly toward primary blue reads corporate or sports-team, and drifting toward violet reads like uplighting, so it has to be held exactly where it is. And unlike the neutral directions, this palette is visible in every photo it borders — a full-bleed indigo band beside a warm barn shot is a statement, and a more conservative venue partner may not want it on a shared marketing page.",
+      vars: {
+        bg: "#F8F8FA", fg: "#181733", body: "#181733", mute: "#4B4A63",
+        accent: "#3B3596", btnBg: "#3B3596", btnFg: "#F8F8FA",
+        plate: "#E6E5F2", plateFg: "#4B4A63", hair: "#8B8AA0", rule: "#8B8AA0",
+        band: "#3B3596", bandFg: "#F8F8FA", bandBody: "#F8F8FA", bandMute: "#E6E5F2", bandAccent: "#E6E5F2"
+      },
+      colors: [
+        { hex: "#3B3596", name: "Indigo", role: "The brand colour, used at scale — full-bleed bands, primary button, footer", usage: "NEW TERRITORY: roughly a third of the page, not a 2% hairline. Chalk on it is 9.27:1, white 9.83:1. L* 29 with real saturation — deep enough to read as an architectural block, vivid enough to never read as near-black." },
+        { hex: "#1F1C55", name: "Indigo Deep", role: "Pressed states and the scrim behind headline text over photos", usage: "Chalk on it is 14.61:1. An indigo-black scrim rather than a neutral one, so the amber lights under it stay warm." },
+        { hex: "#E6E5F2", name: "Indigo Wash", role: "Large tint fields where dark text has to sit", usage: "Ink on it is 13.94:1, Indigo 7.89:1, Slate Violet 6.85:1. This is how the colour reaches page area without forcing every section to be reversed." },
+        { hex: "#F8F8FA", name: "Chalk", role: "Page background", usage: "A NEUTRAL white, not a warm one — the only neutral ground in the eight. A warm paper would grey the indigo out; this keeps it vivid." },
+        { hex: "#181733", name: "Ink", role: "Headings and body text", usage: "16.37:1 on Chalk. Violet-cast near-black so it belongs to the indigo family rather than sitting outside it." },
+        { hex: "#4B4A63", name: "Slate Violet", role: "Secondary text and captions", usage: "8.05:1 on Chalk, 6.85:1 on Indigo Wash." },
+        { hex: "#8B8AA0", name: "Rule", role: "Hairlines, dividers, and form-field boundaries", usage: "3.17:1 on Chalk — clears WCAG 1.4.11 for a field edge. Never text." },
+        { hex: "#B98D5C", name: "Oak", role: "RESERVED — never a UI colour", usage: "The wood's own range, documented so that no future colour is ever chosen inside it. Especially load-bearing here, because a palette this confident invites someone to add a 'complementary' brass or gold — which would compete with the floor directly." }
+      ]
+    },
+    {
+      id: "panel",
+      name: "Panel",
+      mood: "Two-tone, product-literal, uncompromising",
+      plainPitch: "Black, white, and nothing else — because that's literally what you rent; the wood shows up only in the photographs.",
+      rationale: "The palette IS the product: black panels, white panels, wood. There is no brand colour to reconcile against the floor, because the brand colour and the floor are the same two values. Structurally it is the only direction with no neutral middle — no mid-grey secondary text exists, so hierarchy is made from size, weight, rules and inversion, which is exactly what lets full-black and full-white sections alternate down the page without anything looking decorative. Both product finishes get a home ground: black panels photograph best against white, white panels against the inverted black sections. And absolute neutrality means 100% of the warmth on the page comes from the photography — nothing on screen is competing to be warm.",
+      risk: "This is the least forgiving system here, both to build and to maintain. With no greys, every state — hover, disabled, placeholder, error — has to be solved structurally, and the first person who adds a light-grey caption breaks the entire idea. It supplies zero emotional warmth of its own, so it lives or dies on photo quality and on the strength of the new logo. It also sits adjacent to Wall Label: if you like Wall Label specifically for its warmth, this is the colder sibling and you will feel that immediately. And pure black-and-white can read as fashion or nightclub rather than wedding — possibly right for a dance floor, possibly wrong for the bride's mother, who is often the one making the call.",
+      vars: {
+        bg: "#F7F7F7", fg: "#0D0D0D", body: "#0D0D0D", mute: "#0D0D0D",
+        accent: "#0D0D0D", btnBg: "#0D0D0D", btnFg: "#FFFFFF",
+        plate: "#FFFFFF", plateFg: "#0D0D0D", hair: "#0D0D0D", rule: "#0D0D0D",
+        band: "#1A1A1A", bandFg: "#FFFFFF", bandBody: "#F7F7F7", bandMute: "#F7F7F7", bandAccent: "#FFFFFF"
+      },
+      colors: [
+        { hex: "#0D0D0D", name: "Ink", role: "All text, all hairlines at full strength, and the fill of inverted sections", usage: "NEW TERRITORY: 19.44:1 on White. Rules are drawn in this at 1px — a full-strength black hairline reads light purely because it is thin, which is what removes the need for a grey." },
+        { hex: "#1A1A1A", name: "Field", role: "Ground for large inverted sections", usage: "White on it is 17.40:1, Paper 16.25:1. A hair off Ink so a full-black section reads as a surface rather than a void." },
+        { hex: "#FFFFFF", name: "White", role: "Ground for product photography and full-bleed imagery", usage: "The one place true white is correct — a black floor panel photographed against it has maximum separation." },
+        { hex: "#F7F7F7", name: "Paper", role: "Ground for long-form text", usage: "Ink on it is 18.14:1. A hair off white specifically to cut the glare of black type on pure white at body size." },
+        { hex: "#8A8A8A", name: "Grey", role: "Disabled and inactive controls ONLY", usage: "3.45:1 on White, 5.04:1 on Ink. Never text. This is the system's single permitted mid value, and it is permitted only because WCAG explicitly exempts inactive controls from contrast requirements." },
+        { hex: "#B98D5C", name: "Oak", role: "RESERVED — never a UI colour", usage: "Named so it is unmistakable that the only colour in this system arrives inside a photograph. Nothing drawn in CSS is ever allowed in this range." }
+      ]
+    }
+  ];
+
+  /* ==========================================================
+     DATA — typography systems
+     ========================================================== */
+
+  var TYPES = [
+    {
+      id: "type-didone-chandelier",
+      name: "Chandelier",
+      feel: "Formal, glamorous, high-contrast",
+      displayFamily: "Bodoni Moda",
+      bodyFamily: "Inter",
+      displaySpec: "Bodoni Moda (Google Fonts) — 500 for headlines at 44px and up, 700 reserved for one hero line per page. Uses the variable optical-size axis (opsz 72–96) at display sizes so the hairlines stay crisp. Never set below 28px.",
+      bodySpec: "Inter (Google Fonts) — 400 at 17–18px for body, 500 for labels and eyebrows set in caps at +0.08em tracking.",
+      plainPitch: "The wedding-magazine look. Thin-and-thick lettering that feels like an evening event and a black-tie invitation. The most glamorous of the eight — and the one that only works if the headlines are genuinely big.",
+      rationale: "The product is literally a study in contrast — black panels against white panels. A Didone is that same idea rendered as letterform: hairline against thick stem. It delivers evening-reception formality without a single script letter, and set large over warm-lit photography it reads as bridal editorial rather than a rental catalogue, which is the register that justifies quote-only pricing. Inter underneath stays completely neutral so the serif does all the talking, and caps eyebrows carry the practical copy without competing. Works with any palette, strongest on the near-white and warm off-white grounds where hairlines survive.",
+      risk: "Didones are fragile. Below roughly 28px the hairlines thin out, and over a busy photo or on a dim phone they look weak — every headline needs a solid ground or a scrim, which constrains photo layouts. It also skews feminine-luxury and bridal-magazine; if the brand needs to read equally to corporate event planners and venue managers, this is the least operationally serious of the eight. Demands real discipline (big sizes, tight leading) or it looks cheap rather than expensive.",
+      displayStack: "Didot, \"Bodoni 72\", \"Bodoni MT\", \"Big Caslon\", Georgia, \"Times New Roman\", serif",
+      bodyStack: "\"Helvetica Neue\", Helvetica, Arial, \"Segoe UI\", system-ui, sans-serif",
+      labelFrom: "body",
+      css: { transform: "none", track: "-0.015em", weight: "500", lead: "1.02", mult: "1.06", bodySize: "17px", bodyLead: "1.6" }
+    },
+    {
+      id: "type-humanist-hearth",
+      name: "Hearth",
+      feel: "Warm, human, unpretentious",
+      displayFamily: "Alegreya",
+      bodyFamily: "Alegreya Sans",
+      displaySpec: "Alegreya (Google Fonts) — 500 for headlines, 700 for the single largest statement on a page. Italic strictly for pull quotes, never for interface text.",
+      bodySpec: "Alegreya Sans (Google Fonts) — 400 at 17–18px for body, 500 for labels. Same superfamily as the display face, so the two share skeleton and rhythm.",
+      plainPitch: "The friendly one. Lettering with a little handmade warmth, so the brand sounds like a person rather than a rental catalogue. The easiest of the eight to read — and the least fancy.",
+      rationale: "Alegreya is a calligraphically-rooted serif — slightly irregular, humane, drawn for long reading — which is the opposite of cold luxury. Against barn beams, chandeliers, and string lights it feels like it belongs in the room rather than imported from a fashion shoot. Because display and body are siblings, the page holds together effortlessly and never looks like two fonts arguing, which matters on a site that is mostly photographs plus short paragraphs. It gives the brand a voice that implies a real person answers the quote request — useful precisely because the price isn't posted.",
+      risk: "Warmth costs authority. This is the least premium-signalling pair of the eight; at small sizes it can read like a blog or a nonprofit report rather than a company priced above the budget tier. The Alegreya italic is genuinely calligraphic and, used more than once or twice per page, drifts toward the wine-label territory adjacent to the no-script rule. A superfamily pairing also carries less tension — some people read it as safe rather than considered.",
+      displayStack: "\"Iowan Old Style\", Charter, \"Palatino Linotype\", Palatino, \"Book Antiqua\", Georgia, serif",
+      bodyStack: "Optima, Candara, \"Gill Sans\", \"Gill Sans MT\", \"Trebuchet MS\", sans-serif",
+      labelFrom: "body",
+      css: { transform: "none", track: "-0.005em", weight: "600", lead: "1.08", mult: "1.0", bodySize: "17px", bodyLead: "1.68" }
+    },
+    {
+      id: "type-swiss-blueprint",
+      name: "Blueprint",
+      feel: "Neutral, architectural, disciplined",
+      displayFamily: "Neue Haas Grotesk Display",
+      bodyFamily: "Neue Haas Grotesk Text",
+      displaySpec: "Neue Haas Grotesk Display 55 Roman and 65 Medium (Adobe Fonts) — headlines only, tight leading, tracked -0.02em at large sizes. Free substitute: Inter Tight 500/600 (Google Fonts).",
+      bodySpec: "Neue Haas Grotesk Text 55 Roman and 75 Bold (Adobe Fonts) at 17px. Free substitute: Inter 400/600 (Google Fonts). One family total, two optical cuts.",
+      plainPitch: "The architect's approach. One clean typeface, nothing decorative, so the floors and the photos are the only thing anyone looks at. Extremely confident — and the least romantic option here.",
+      rationale: "The product is a grid — three-foot panels assembled into a rectangle from 18×18 up to 24×24. Swiss typography is a grid system, so this is the one attitude that structurally rhymes with what is being sold. Using a single grotesque in two weights means the type contributes zero decoration: the only pattern on the page is the floor and the venue photography, which is the strongest possible complement to a black-white-and-wood product. It is also the attitude the zero-radius, no-shadow, no-gradient rules were written for, and it reads as specification-driven competence — which supports the insurance and sizing claims better than any serif could.",
+      risk: "Neutrality is unforgiving. With nothing decorative to hide behind, every margin, scale jump, and line length has to be right or the page reads unfinished rather than restrained. It is also the least wedding-like of the eight — someone comparing vendors may register a tech company or an architecture practice and not feel the occasion. And the real Neue Haas needs an active Adobe Fonts (Creative Cloud) subscription for web use; Inter is a good substitute but not the same face.",
+      displayStack: "\"Helvetica Neue\", Helvetica, \"Segoe UI\", Arial, \"Liberation Sans\", sans-serif",
+      bodyStack: "\"Helvetica Neue\", Helvetica, \"Segoe UI\", Arial, \"Liberation Sans\", sans-serif",
+      labelFrom: "body",
+      css: { transform: "none", track: "-0.022em", weight: "600", lead: "1.0", mult: "1.0", bodySize: "17px", bodyLead: "1.6" }
+    },
+    {
+      id: "type-longform-long-table",
+      name: "Long Table",
+      feel: "Editorial, readable, considered",
+      displayFamily: "Libre Franklin",
+      bodyFamily: "Literata",
+      displaySpec: "Libre Franklin (Google Fonts) — 700 for headlines, 600 for subheads. An American gothic in the Franklin lineage; caps eyebrows at +0.06em tracking.",
+      bodySpec: "Literata (Google Fonts) — 400 at 18–19px with 1.65 line-height, 400 italic for photo captions. A serif drawn specifically for screen reading.",
+      plainPitch: "The one built for reading. Strong plain headlines with book-style body text, so the sizing, insurance and planning copy actually gets read. Best pick if you want the website to do the explaining before anyone calls you.",
+      rationale: "This inverts the pattern all five existing directions share — sturdy sans headline, serif for the actual reading. That inversion matters commercially here: quote-only pricing means the site has to sell with words. What 18×18 actually holds, why indoor-only, what being insured means to a venue coordinator. A serif body invites people to read a paragraph instead of skimming, and Literata was drawn for screens so it holds at 18px on a phone. The Franklin-lineage headline is plain-spoken and American — closer to a venue's own signage than to a fashion magazine — which keeps the premium positioning grounded instead of precious.",
+      risk: "Sans headline over serif body is the visual language of news sites and long-form publications, so it can read informational rather than celebratory — more “read our guide” than “book this for your wedding.” Serif body needs generous size and leading, which makes pages taller and pushes photographs further apart. And Libre Franklin at heavy weights is workmanlike; it will never look luxurious by itself, so all of the luxury has to come from the palette and the photography.",
+      displayStack: "\"Franklin Gothic Medium\", \"Helvetica Neue\", Helvetica, Arial, \"Liberation Sans\", sans-serif",
+      bodyStack: "Charter, \"Iowan Old Style\", Georgia, Cambria, \"Times New Roman\", serif",
+      labelFrom: "display",
+      css: { transform: "none", track: "-0.012em", weight: "700", lead: "1.05", mult: "0.98", bodySize: "18px", bodyLead: "1.65" }
+    },
+    {
+      id: "type-condensed-playbill",
+      name: "Playbill",
+      feel: "Tall, structural, event-signage",
+      displayFamily: "Barlow Condensed",
+      bodyFamily: "Barlow",
+      displaySpec: "Barlow Condensed (Google Fonts) — 600 in caps for headlines, 700 for the single biggest statement, +0.02em tracking. Adobe upgrade: Acumin Pro Extra Condensed 600.",
+      bodySpec: "Barlow (Google Fonts) — 400 at 17px, 500 for labels. The same family at normal width, so the condensed headline reads as deliberate compression rather than a second font.",
+      plainPitch: "The event-signage look. Tall narrow capitals like stage and backstage lettering — it sounds like a production company rather than a furniture rental. Use it big and sparingly; it's the least soft option on the list.",
+      rationale: "Condensed caps are the native language of event production — stage signage, crew cases, load-in sheets, marquee lettering — so this is the only one of the eight that sounds like the work the business actually does. Practically it lets “24 × 24 FEET” or a long venue name set enormous inside a narrow column, stacking over a vertical photograph instead of fighting it, which is a genuine layout advantage on phones. Compressing one family rather than adding a second keeps the page tight with zero ornament, which suits the no-radius and no-shadow rules exactly.",
+      risk: "Condensed caps carry gym, brewery, and concert-poster associations. Overused it reads athletic and industrial — the least romantic register of the eight — and it undercuts the premium positioning if it shows up anywhere except a few large moments. Barlow's slightly rounded terminals soften that but also make it feel a touch generic; the Acumin upgrade is noticeably sharper. Long headlines in condensed caps are also slower to read, so the copy has to stay short.",
+      displayStack: "\"Avenir Next Condensed\", \"Arial Narrow\", \"Helvetica Neue\", \"Liberation Sans Narrow\", sans-serif",
+      bodyStack: "\"Avenir Next\", Avenir, \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+      labelFrom: "body",
+      css: { transform: "uppercase", track: "0.02em", weight: "700", lead: "0.98", mult: "1.1", bodySize: "17px", bodyLead: "1.6" }
+    },
+    {
+      id: "type-extended-wide-plank",
+      name: "Wide Plank",
+      feel: "Horizontal, broad, grounded",
+      displayFamily: "Archivo Expanded",
+      bodyFamily: "Source Sans 3",
+      displaySpec: "Archivo Expanded (Google Fonts, variable — width axis at 125) — 600 in caps, +0.04em tracking, used at 40px and up only. Adobe upgrade: Acumin Pro Wide Semibold.",
+      bodySpec: "Source Sans 3 (Google Fonts) — 400 at 17px, 600 for labels. Open and humanist, deliberately quieter than the headline.",
+      plainPitch: "The wide one. Letters stretched out to echo the shape of a floor, running right across the top of a photo. Nobody else in your market looks like this — the trade-off is it needs big screens to shine, and phones need their own separate treatment.",
+      rationale: "A dance floor is a wide horizontal plane, and an extended face is the only typographic move that repeats that proportion — a headline running wide across the top of a full-bleed floor photo mirrors the thing being sold. It is rare enough on the web that the brand will not resemble the competition, nearly all of whom default to condensed lettering or a stock serif. Wide caps also stay legible over warm-lit venue photography because the letters are large and open rather than thin, so it survives the exact image conditions that break the Didone. Source Sans underneath is unfussy, which lets the width read as the intentional gesture.",
+      risk: "Extended type only works on wide layouts. On a phone a wide headline breaks into three or four lines and the whole effect collapses, so mobile needs a separate type scale or a fallback to normal width — that is real design work, not a switch. It also drifts toward luxury-fashion and hotel branding, which is aspirational but slightly impersonal for a local operator with a personal quoting process. It must never be used for body text.",
+      displayStack: "Copperplate, \"Copperplate Gothic Light\", Optima, \"Gill Sans MT\", \"Segoe UI\", sans-serif",
+      bodyStack: "\"Segoe UI\", Candara, \"Helvetica Neue\", Avenir, Arial, sans-serif",
+      labelFrom: "body",
+      css: { transform: "uppercase", track: "0.045em", weight: "600", lead: "1.08", mult: "0.8", bodySize: "17px", bodyLead: "1.62" }
+    },
+    {
+      id: "type-geometric-compass",
+      name: "Compass",
+      feel: "Modern, minimal, quietly upscale",
+      displayFamily: "Jost",
+      bodyFamily: "Karla",
+      displaySpec: "Jost (Google Fonts) — 500 in caps at +0.1em tracking for headlines, 400 for subheads. A Futura-lineage geometric. Adobe upgrade: Futura PT Medium/Demi.",
+      bodySpec: "Karla (Google Fonts) — 400 at 17px, 500 for labels. A low-contrast grotesque with open shapes that stays readable underneath geometric caps.",
+      plainPitch: "The modern-minimal wedding look. Clean geometric capitals with lots of air between the letters. It will fit straight in with the planners and venues you want referrals from — the trade-off is it's the most “right now,” so it may feel dated sooner than the others.",
+      rationale: "Geometric caps with generous letter-spacing is the dominant look of modern-minimal weddings right now, and it is the closest of the eight to the aesthetic of the venues and planners this business wants referrals from. The circles-and-lines construction rhymes with a hard-edged product photographed straight on: no radius, no shadow, no ornament, just proportion. Karla underneath is doing real work — geometric faces are poor at text sizes because of their tight apertures, so Karla supplies the readability the headline cannot while staying in the same low-contrast register.",
+      risk: "This is the most fashionable option, which makes it the most dateable — wide-tracked geometric caps are heavily used in 2020s wedding branding and will read as of-their-moment within five years. It can also go cold: Futura-lineage geometry has no warmth of its own, so it depends entirely on the palette and the photography to supply it. Tracked caps are slow to read, so headlines have to stay short.",
+      displayStack: "Futura, \"Century Gothic\", \"Avenir Next\", \"Trebuchet MS\", sans-serif",
+      bodyStack: "\"Helvetica Neue\", \"Segoe UI\", Tahoma, Arial, sans-serif",
+      labelFrom: "body",
+      css: { transform: "uppercase", track: "0.1em", weight: "500", lead: "1.18", mult: "0.84", bodySize: "17px", bodyLead: "1.65" }
+    },
+    {
+      id: "type-classical-letterpress",
+      name: "Letterpress",
+      feel: "Classical, ceremonial, printed",
+      displayFamily: "EB Garamond",
+      bodyFamily: "EB Garamond",
+      displaySpec: "EB Garamond (Google Fonts) — 500 for headlines, 600 for the largest line; eyebrows in spaced caps at +0.05em. Adobe upgrades: Adobe Caslon Pro, or Mrs Eaves for a wider, more decorative cut.",
+      bodySpec: "EB Garamond (Google Fonts) — 400 at 18–19px with 1.6 line-height, 400 italic for captions. One family doing everything, like a printed programme.",
+      plainPitch: "The invitation look, with no handwriting anywhere. One classic serif for everything, like a printed wedding programme. The most timeless option — but it's the fussiest to get right on phones, and your buttons and forms will feel more traditional.",
+      rationale: "This reaches the register of wedding stationery — invitations, programmes, place cards — through a classical book serif rather than a script, which is precisely the line the brand rules draw. Setting one Garamond for both headlines and text makes the page behave like a printed piece instead of a website, and that restraint is a premium signal that costs nothing and never competes with black, white, and wood. It is the most timeless of the eight: a Garamond looked correct in 1990 and will look correct in 2040, which matters for a brand that will not be redesigned often.",
+      risk: "An all-serif page is the hardest of the eight to get right on mobile. EB Garamond has a small x-height and a light colour on screen, so it needs 18–19px, generous leading, and careful colour choices to hold WCAG AA comfortably; set too small it goes pale and grey. With no sans anywhere, buttons, form labels, and the quote-request flow can feel old-fashioned or slow. True small caps require the full EB Garamond release rather than the standard Google build. And a classical serif is the one option that could read law firm or university if the layout isn't warm enough.",
+      displayStack: "Garamond, \"Hoefler Text\", Baskerville, \"Palatino Linotype\", Palatino, Georgia, serif",
+      bodyStack: "Garamond, \"Hoefler Text\", Baskerville, \"Palatino Linotype\", Palatino, Georgia, serif",
+      labelFrom: "display",
+      css: { transform: "none", track: "0em", weight: "500", lead: "1.08", mult: "1.08", bodySize: "18px", bodyLead: "1.62" }
+    }
+  ];
+
+  /* ==========================================================
+     PRESETS — the designers' recommended pairings
+     ========================================================== */
+
+  var PRESETS = [
+    { pal: "wall-label",   type: "type-swiss-blueprint",         why: "Museum precision on both sides. One grotesque, no ornament, and the floor dimensions become the only large thing on the page." },
+    { pal: "ink-and-oak",  type: "type-didone-chandelier",       why: "The evening bundle. A dark warm room plus thin-and-thick lettering — the most black-tie combination of the sixty-four." },
+    { pal: "quarry",       type: "type-humanist-hearth",         why: "Warm stone under warm lettering. The most approachable pairing here, and the one that sounds most like a person." },
+    { pal: "masthead",     type: "type-longform-long-table",     why: "The magazine bundle. Editorial paper, plain strong headlines, and body text built to actually be read." },
+    { pal: "patina",       type: "type-classical-letterpress",   why: "The stationery bundle. Heritage off-white with one classical serif doing everything, like a printed programme." }
+  ];
+
+  /* ==========================================================
+     STATE + WIRING
+     ========================================================== */
+
+  var palIndex = 0;
+  var typeIndex = 0;
+
+  var $ = function (id) { return document.getElementById(id); };
+
+  function findIndex(list, id) {
+    for (var i = 0; i < list.length; i++) { if (list[i].id === id) return i; }
+    return -1;
+  }
+
+  function esc(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  /* flag a colour that must never carry text */
+  function colorFlag(c) {
+    var blob = (c.role + " " + c.usage);
+    if (/RESERVED/.test(c.role)) return "Reserved — never a UI colour";
+    if (/never text|Never text|not legal as text|fails AA|decoration only|Decorative dividers only|disabled and inactive|Disabled and inactive|Placeholders and disabled/i.test(blob)) return "Not for text";
+    return "";
+  }
+
+  function stackPreview(stack) {
+    var parts = stack.split(",").map(function (s) { return s.trim().replace(/^"|"$/g, ""); });
+    var shown = parts.slice(0, 4).join(" → ");
+    return parts.length > 4 ? shown + " → …" : shown;
+  }
+
+  /* ---------- build the control chips once ---------- */
+
+  function buildPaletteChips() {
+    var host = $("palChips");
+    var html = "";
+    for (var i = 0; i < PALETTES.length; i++) {
+      var p = PALETTES[i];
+      html +=
+        '<button class="chip" type="button" data-kind="pal" data-i="' + i + '" aria-pressed="false">' +
+          '<span class="chip__row">' +
+            '<span class="chip__name">' + esc(p.name) + '</span>' +
+            '<span class="chip__pick">Showing</span>' +
+          '</span>' +
+          '<span class="chip__sub">' + esc(p.mood) + '</span>' +
+          '<span class="chip__bars" aria-hidden="true">' +
+            '<i style="background:' + p.vars.bg + '"></i>' +
+            '<i style="background:' + p.vars.fg + '"></i>' +
+            '<i style="background:' + p.vars.accent + '"></i>' +
+            '<i style="background:' + p.vars.band + '"></i>' +
+          '</span>' +
+        '</button>';
+    }
+    host.innerHTML = html;
+  }
+
+  function buildTypeChips() {
+    var host = $("typeChips");
+    var html = "";
+    for (var i = 0; i < TYPES.length; i++) {
+      var t = TYPES[i];
+      var style = "font-family:" + t.displayStack.replace(/"/g, "&quot;") +
+                  ";text-transform:" + t.css.transform +
+                  ";letter-spacing:" + (t.css.transform === "uppercase" ? t.css.track : "0") +
+                  ";font-weight:" + t.css.weight + ";";
+      html +=
+        '<button class="chip" type="button" data-kind="type" data-i="' + i + '" aria-pressed="false">' +
+          '<span class="chip__row">' +
+            '<span class="chip__spec" style="' + style + '">' + esc(t.name) + '</span>' +
+            '<span class="chip__pick">Showing</span>' +
+          '</span>' +
+          '<span class="chip__sub">' + esc(t.feel) + '<br>' + esc(t.displayFamily) + " + " + esc(t.bodyFamily) + '</span>' +
+        '</button>';
+    }
+    host.innerHTML = html;
+  }
+
+  function buildPresets() {
+    var host = $("presets");
+    var html = "";
+    for (var i = 0; i < PRESETS.length; i++) {
+      var pr = PRESETS[i];
+      var p = PALETTES[findIndex(PALETTES, pr.pal)];
+      var t = TYPES[findIndex(TYPES, pr.type)];
+      html +=
+        '<button class="preset" type="button" data-kind="preset" data-i="' + i + '">' +
+          '<span class="preset__name">' + esc(p.name) + '</span>' +
+          '<span class="preset__combo">with ' + esc(t.name) + ' lettering</span>' +
+          '<span class="preset__why">' + esc(pr.why) + '</span>' +
+        '</button>';
+    }
+    host.innerHTML = html;
+  }
+
+  /* ---------- apply the selection ---------- */
+
+  function apply() {
+    var p = PALETTES[palIndex];
+    var t = TYPES[typeIndex];
+    var pv = $("pv");
+    var v = p.vars;
+
+    pv.style.setProperty("--p-bg", v.bg);
+    pv.style.setProperty("--p-fg", v.fg);
+    pv.style.setProperty("--p-body", v.body);
+    pv.style.setProperty("--p-mute", v.mute);
+    pv.style.setProperty("--p-accent", v.accent);
+    pv.style.setProperty("--p-btn-bg", v.btnBg);
+    pv.style.setProperty("--p-btn-fg", v.btnFg);
+    pv.style.setProperty("--p-plate", v.plate);
+    pv.style.setProperty("--p-plate-fg", v.plateFg);
+    pv.style.setProperty("--p-hair", v.hair);
+    pv.style.setProperty("--p-rule", v.rule);
+    pv.style.setProperty("--p-band", v.band);
+    pv.style.setProperty("--p-band-fg", v.bandFg);
+    pv.style.setProperty("--p-band-body", v.bandBody);
+    pv.style.setProperty("--p-band-mute", v.bandMute);
+    pv.style.setProperty("--p-band-accent", v.bandAccent);
+
+    pv.style.setProperty("--t-display", t.displayStack);
+    pv.style.setProperty("--t-body", t.bodyStack);
+    pv.style.setProperty("--t-label", t.labelFrom === "display" ? t.displayStack : t.bodyStack);
+    pv.style.setProperty("--t-transform", t.css.transform);
+    pv.style.setProperty("--t-track", t.css.track);
+    pv.style.setProperty("--t-weight", t.css.weight);
+    pv.style.setProperty("--t-lead", t.css.lead);
+    pv.style.setProperty("--t-mult", t.css.mult);
+    pv.style.setProperty("--t-body-size", t.css.bodySize);
+    pv.style.setProperty("--t-body-lead", t.css.bodyLead);
+
+    /* frame background so the outer border reads on dark grounds */
+    document.querySelector(".frame").style.background = v.bg;
+
+    /* chip pressed states */
+    var chips = document.querySelectorAll(".chip");
+    for (var i = 0; i < chips.length; i++) {
+      var k = chips[i].getAttribute("data-kind");
+      var n = parseInt(chips[i].getAttribute("data-i"), 10);
+      var on = (k === "pal" && n === palIndex) || (k === "type" && n === typeIndex);
+      chips[i].setAttribute("aria-pressed", on ? "true" : "false");
+    }
+
+    /* preset highlight */
+    var presets = document.querySelectorAll(".preset");
+    for (var j = 0; j < presets.length; j++) {
+      var pr = PRESETS[j];
+      presets[j].setAttribute("data-on", (pr.pal === p.id && pr.type === t.id) ? "1" : "0");
+    }
+
+    renderStage(p, t);
+    renderPalettePane(p);
+    renderTypePane(t);
+    renderSummary(p, t);
+    updateHash(p, t);
+  }
+
+  function renderStage(p, t) {
+    var n = (palIndex * TYPES.length) + typeIndex + 1;
+    $("comboCount").textContent = "Combination " + n + " of " + (PALETTES.length * TYPES.length);
+    $("nowLine").innerHTML = esc(p.name) + " <em>colour</em> + " + esc(t.name) + " <em>lettering</em>";
+    $("nowMeta").textContent = p.mood + " · " + t.feel;
+    $("frameNote").textContent =
+      "Preview substitutes — headings: " + stackPreview(t.displayStack) +
+      " · body: " + stackPreview(t.bodyStack) +
+      ". The real families are " + t.displayFamily +
+      (t.displayFamily === t.bodyFamily ? " throughout" : " and " + t.bodyFamily) +
+      "; nothing is downloaded here, so proportions and weights are approximate.";
+    $("barPal").textContent = p.name;
+    $("barType").textContent = t.name;
+  }
+
+  function renderPalettePane(p) {
+    $("palName").textContent = p.name;
+    $("palMood").textContent = p.mood;
+    $("palPitch").textContent = p.plainPitch;
+    $("palRisk").textContent = p.risk;
+    $("palWhy").textContent = p.rationale;
+
+    var html = "";
+    for (var i = 0; i < p.colors.length; i++) {
+      var c = p.colors[i];
+      var flag = colorFlag(c);
+      html +=
+        '<div class="sw">' +
+          '<div class="sw__chip" style="background:' + c.hex + '"></div>' +
+          '<div class="sw__top"><span class="sw__name">' + esc(c.name) + '</span><span class="sw__hex">' + esc(c.hex) + '</span></div>' +
+          '<p class="sw__role">' + esc(c.role) + '</p>' +
+          '<p class="sw__use">' + esc(c.usage) + '</p>' +
+          (flag ? '<span class="sw__flag">' + esc(flag) + '</span>' : '') +
+        '</div>';
+    }
+    $("palSwatches").innerHTML = html;
+  }
+
+  function renderTypePane(t) {
+    $("typeName").textContent = t.name;
+    $("typeFeel").textContent = t.feel;
+    $("typePitch").textContent = t.plainPitch;
+    $("typeRisk").textContent = t.risk;
+    $("typeWhy").textContent = t.rationale;
+
+    var same = (t.displayFamily === t.bodyFamily);
+    var html =
+      '<div class="spec-row"><dt>Headlines</dt><dd><b>' + esc(t.displayFamily) + '</b><br>' + esc(t.displaySpec) +
+        '<span class="stack">Preview substitute: ' + esc(stackPreview(t.displayStack)) + '</span></dd></div>' +
+      '<div class="spec-row"><dt>Body text</dt><dd><b>' + esc(t.bodyFamily) + '</b>' + (same ? ' <span style="color:var(--c-mute)">— same family</span>' : '') + '<br>' + esc(t.bodySpec) +
+        '<span class="stack">Preview substitute: ' + esc(stackPreview(t.bodyStack)) + '</span></dd></div>' +
+      '<div class="spec-row"><dt>Families</dt><dd>' + (same ? "One family, doing everything." : "Two families — the maximum this brand allows.") + ' No script or handwriting face is used anywhere in this system.</dd></div>';
+    $("typeSpecs").innerHTML = html;
+  }
+
+  function renderSummary(p, t) {
+    $("sumPal").textContent = p.name;
+    $("sumPalMood").textContent = p.mood;
+    $("sumType").textContent = t.name;
+    $("sumTypeFam").textContent = (t.displayFamily === t.bodyFamily)
+      ? t.displayFamily + " throughout"
+      : t.displayFamily + " for headlines · " + t.bodyFamily + " for body";
+
+    var hx = "";
+    for (var i = 0; i < p.colors.length; i++) {
+      hx += '<span><i style="background:' + p.colors[i].hex + '"></i>' + esc(p.colors[i].hex) + '</span>';
+    }
+    $("sumHexes").innerHTML = hx;
+    $("pickText").value = summaryText(p, t);
+  }
+
+  function summaryText(p, t) {
+    var L = [];
+    L.push("DFB — brand combination");
+    L.push("");
+    L.push("COLOUR: " + p.name + " — " + p.mood);
+    for (var i = 0; i < p.colors.length; i++) {
+      var c = p.colors[i];
+      L.push("  " + c.hex + "  " + c.name + " — " + c.role);
+    }
+    L.push("");
+    L.push("TYPOGRAPHY: " + t.name + " — " + t.feel);
+    L.push("  Headlines: " + t.displayFamily);
+    L.push("  Body text: " + t.bodyFamily);
+    L.push("");
+    L.push("What I like about the colour: ");
+    L.push("What I like about the lettering: ");
+    L.push("What I would change: ");
+    L.push("");
+    L.push("Link back to this exact combination:");
+    L.push("  #p=" + p.id + "&t=" + t.id);
+    return L.join("\n");
+  }
+
+  /* ---------- deep link ---------- */
+
+  function updateHash(p, t) {
+    var h = "#p=" + p.id + "&t=" + t.id;
+    try {
+      if (window.history && window.history.replaceState) {
+        window.history.replaceState(null, "", h);
+        return;
+      }
+    } catch (e) { /* file:// in some browsers — fall through */ }
+    try { window.location.hash = h; } catch (e2) { /* give up silently */ }
+  }
+
+  function readHash() {
+    var h = String(window.location.hash || "").replace(/^#/, "");
+    if (!h) return;
+    var parts = h.split("&");
+    for (var i = 0; i < parts.length; i++) {
+      var kv = parts[i].split("=");
+      if (kv.length !== 2) continue;
+      if (kv[0] === "p") { var pi = findIndex(PALETTES, kv[1]); if (pi >= 0) palIndex = pi; }
+      if (kv[0] === "t") { var ti = findIndex(TYPES, kv[1]); if (ti >= 0) typeIndex = ti; }
+    }
+  }
+
+  /* ---------- events ---------- */
+
+  function onClick(e) {
+    var el = e.target;
+    while (el && el !== document.body && !el.getAttribute) { el = el.parentNode; }
+    while (el && el !== document.body && !el.hasAttribute("data-kind")) { el = el.parentNode; }
+    if (!el || el === document.body || !el.hasAttribute || !el.hasAttribute("data-kind")) return;
+
+    var kind = el.getAttribute("data-kind");
+    var i = parseInt(el.getAttribute("data-i"), 10);
+    if (isNaN(i)) return;
+
+    if (kind === "pal") { palIndex = i; apply(); }
+    else if (kind === "type") { typeIndex = i; apply(); }
+    else if (kind === "preset") {
+      var pr = PRESETS[i];
+      var pi = findIndex(PALETTES, pr.pal);
+      var ti = findIndex(TYPES, pr.type);
+      if (pi >= 0) palIndex = pi;
+      if (ti >= 0) typeIndex = ti;
+      apply();
+    }
+  }
+
+  function step(kind, delta) {
+    if (kind === "pal") {
+      palIndex = (palIndex + delta + PALETTES.length) % PALETTES.length;
+    } else {
+      typeIndex = (typeIndex + delta + TYPES.length) % TYPES.length;
+    }
+    apply();
+  }
+
+  function copySummary() {
+    var txt = $("pickText").value;
+    var status = $("copyStatus");
+    function ok() { status.textContent = "Copied."; }
+    function fail() {
+      status.textContent = "Couldn't copy automatically — the plain text is shown below, select it and copy.";
+      var ta = $("pickText");
+      ta.hidden = false;
+      ta.focus();
+      ta.select();
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(txt).then(ok, function () { legacyCopy(txt, ok, fail); });
+    } else {
+      legacyCopy(txt, ok, fail);
+    }
+  }
+
+  function legacyCopy(txt, ok, fail) {
+    try {
+      var ta = $("pickText");
+      var wasHidden = ta.hidden;
+      ta.hidden = false;
+      ta.focus();
+      ta.select();
+      var done = document.execCommand && document.execCommand("copy");
+      if (wasHidden) ta.hidden = true;
+      if (done) { ok(); } else { fail(); }
+    } catch (e) { fail(); }
+  }
+
+  /* ---------- init ---------- */
+
+  buildPaletteChips();
+  buildTypeChips();
+  buildPresets();
+
+  /* start on the first recommended pairing unless a link says otherwise */
+  palIndex = findIndex(PALETTES, PRESETS[0].pal);
+  typeIndex = findIndex(TYPES, PRESETS[0].type);
+  if (palIndex < 0) palIndex = 0;
+  if (typeIndex < 0) typeIndex = 0;
+  readHash();
+
+  document.addEventListener("click", onClick, false);
+
+  $("palPrev").addEventListener("click", function () { step("pal", -1); }, false);
+  $("palNext").addEventListener("click", function () { step("pal", 1); }, false);
+  $("typePrev").addEventListener("click", function () { step("type", -1); }, false);
+  $("typeNext").addEventListener("click", function () { step("type", 1); }, false);
+
+  $("reset").addEventListener("click", function () {
+    palIndex = findIndex(PALETTES, PRESETS[0].pal);
+    typeIndex = findIndex(TYPES, PRESETS[0].type);
+    apply();
+  }, false);
+
+  $("copyBtn").addEventListener("click", copySummary, false);
+  $("showBtn").addEventListener("click", function () {
+    var ta = $("pickText");
+    ta.hidden = !ta.hidden;
+    this.textContent = ta.hidden ? "Show as plain text" : "Hide plain text";
+    $("copyStatus").textContent = "";
+  }, false);
+
+  window.addEventListener("hashchange", function () {
+    var before = palIndex + ":" + typeIndex;
+    readHash();
+    if (before !== palIndex + ":" + typeIndex) apply();
+  }, false);
+
+  apply();
+})();
+</script>
+</body>
+</html>
