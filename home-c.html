@@ -519,6 +519,16 @@ button:hover{background:var(--clay-lift);border-color:var(--clay-lift);}
   <section id="finishes" class="finishes">
     <div class="wrap fin-grid">
 
+      <!-- Copy leads in the DOM so the reading order stays correct when the
+           grid collapses on mobile; `order` puts the drawing left on wide
+           screens without changing that order. -->
+      <div class="fin-copy">
+        <h2>Black, white, wood</h2>
+        <p class="say">Three finishes, and any combination of the three.</p>
+        <p class="body">The pattern is a choice rather than a product line — not a fixed set of named arrangements. It is settled with you when we quote.</p>
+        <p class="body">A vinyl graphic can be applied to the center of the floor, at 3 × 4, 5 × 6 or 6 × 6 feet.</p>
+      </div>
+
       <div class="fin-draw">
         <div class="band" role="img" aria-label="Drawing of three dance floor panels side by side, one black, one white, one wood, sharing seams.">
           <span class="b"></span>
@@ -531,13 +541,6 @@ button:hover{background:var(--clay-lift);border-color:var(--clay-lift);}
           <span>Wood</span>
         </div>
         <p class="draw-note"><b>Drawing — not a photograph.</b> We have the wood panels; the first wood install simply has not been photographed yet.</p>
-      </div>
-
-      <div class="fin-copy">
-        <h2>Black, white, wood</h2>
-        <p class="say">Three finishes, and any combination of the three.</p>
-        <p class="body">The pattern is a choice rather than a product line — not a fixed set of named arrangements. It is settled with you when we quote.</p>
-        <p class="body">A vinyl graphic can be applied to the center of the floor, at 3 × 4, 5 × 6 or 6 × 6 feet.</p>
       </div>
 
     </div>
@@ -591,7 +594,6 @@ button:hover{background:var(--clay-lift);border-color:var(--clay-lift);}
                 <option>18 × 18 ft</option>
                 <option>24 × 24 ft</option>
                 <option>Something in between</option>
-                <option>Smaller than 18 × 18 ft</option>
               </select>
             </span>
           </div>

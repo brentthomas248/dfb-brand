@@ -40,12 +40,12 @@ font-display:swap;src:url(data:font/woff2;base64,d09GMgABAAAAAKyMABQAAAABaawAAKw
   /* diagram only — drawn panels, never photographic */
   --panel-black:#17150F;
   --panel-white:#EDE7DD;
-  --panel-wood:#9A714C;
+  --panel-wood:#A5825F;
 
   --gutter:clamp(20px,5vw,72px);
   --content:1096px;          /* the single measure every section aligns to */
   --shot:clamp(210px,23vw,420px);
-  --sect:clamp(64px,9vw,132px);
+  --sect:clamp(56px,7.2vw,104px);
 }
 
 *,*::before,*::after{box-sizing:border-box}
@@ -168,7 +168,7 @@ h2{font-size:clamp(2rem,5.4vw,3.5rem);line-height:1.06;letter-spacing:-.02em;max
   font-variant-numeric:tabular-nums;
 }
 .ledger .v{
-  font-size:clamp(1.45rem,4.3vw,3.7rem);
+  font-size:clamp(1.6rem,4.3vw,3.45rem);
   line-height:1.02;letter-spacing:-.018em;font-weight:500;
 }
 .hero-lede{font-size:20px;max-width:40ch;margin-top:clamp(28px,3.6vw,44px)}
@@ -186,10 +186,10 @@ h2{font-size:clamp(2rem,5.4vw,3.5rem);line-height:1.06;letter-spacing:-.02em;max
 
 /* ---------- 2. installs ---------- */
 
-.bleed{margin:0}
+.bleed{margin:clamp(38px,5.6vw,88px) 0 0}
 .bleed img{
-  width:100%;height:auto;aspect-ratio:2.15/1;
-  object-fit:cover;object-position:50% 62%;background:var(--stone-2);
+  width:100%;height:auto;aspect-ratio:2.3/1;
+  object-fit:cover;object-position:50% 50%;background:var(--stone-2);
 }
 .bleed figcaption{padding:14px var(--gutter) 0}
 
@@ -208,8 +208,8 @@ h2{font-size:clamp(2rem,5.4vw,3.5rem);line-height:1.06;letter-spacing:-.02em;max
 /* ---------- 3. the floors (drawn only — no photography in this section) ---------- */
 
 .floors-grid{
-  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);
-  gap:clamp(34px,6vw,86px);align-items:start;
+  display:grid;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);
+  gap:clamp(34px,5.4vw,76px);align-items:start;
   margin-top:clamp(30px,4.4vw,54px);
 }
 .pull{
@@ -224,7 +224,7 @@ h2{font-size:clamp(2rem,5.4vw,3.5rem);line-height:1.06;letter-spacing:-.02em;max
 }
 .spec b{font-weight:400;color:var(--basalt)}
 
-.diagrams{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,2.6vw,32px)}
+.diagrams{display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,1.9vw,24px)}
 .diagram{margin:0}
 .panelgrid{
   display:grid;width:100%;aspect-ratio:1/1;
@@ -239,7 +239,7 @@ h2{font-size:clamp(2rem,5.4vw,3.5rem);line-height:1.06;letter-spacing:-.02em;max
 .diagram figcaption{margin-top:12px;font-size:18px;line-height:1.4}
 .diagram .drawn{
   display:block;margin-top:5px;
-  font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:var(--clay);
+  font-size:15px;letter-spacing:.09em;text-transform:uppercase;color:var(--clay);
 }
 .legend{display:flex;flex-wrap:wrap;gap:10px 24px;margin-top:clamp(20px,2.6vw,28px)}
 .legend span{display:flex;align-items:center;gap:9px;font-size:18px;color:var(--slate)}

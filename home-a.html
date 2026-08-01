@@ -230,6 +230,9 @@ p + p { margin-top: 1em; }
 .sizes-in { max-width: 880px; }
 
 .ladder { border-top: 1px solid var(--rule-firm); margin-block: 4px 40px; }
+/* the rungs are <p> siblings — the base p+p rule would add a 1em margin,
+   which at display scale is a 100px+ phantom gap between rows. */
+.ladder p { margin-top: 0; }
 
 .rung {
   padding-block: 20px;
@@ -360,7 +363,8 @@ p + p { margin-top: 1em; }
 .foot-base {
   margin-top: 42px; padding-top: 22px;
   border-top: 1px solid #3A352F;
-  display: flex; flex-wrap: wrap; gap: 6px 32px; justify-content: space-between;
+  display: flex; flex-wrap: wrap; gap: 6px 32px;
+  justify-content: space-between; align-items: baseline;
   font-size: 18px;
 }
 </style>
@@ -491,7 +495,7 @@ p + p { margin-top: 1em; }
     <div class="wrap quote-in">
       <h2 id="h-quote">Request a quote</h2>
       <p class="strong">We quote every floor rather than publish a price list.</p>
-      <p class="note">What a floor costs depends on the site, so we would rather look at yours than guess.</p>
+      <p class="note">Site conditions decide what a floor costs.</p>
 
       <div class="terms">
         <p class="note">Most dates are booked well ahead of time. We have also turned a custom floor around in three days.</p>
@@ -529,7 +533,7 @@ p + p { margin-top: 1em; }
               <option>Not sure yet</option>
               <option>18 &times; 18 ft</option>
               <option>24 &times; 24 ft</option>
-              <option>Something smaller</option>
+              
             </select>
           </label>
           <label class="field sel">
@@ -569,7 +573,7 @@ p + p { margin-top: 1em; }
     </div>
     <div class="foot-base">
       <p>&copy; 2026 Dance Floor Bros</p>
-      <p>Kansas City, and beyond case by case.</p>
+      <p>Kansas City, and beyond, case by case.</p>
     </div>
   </div>
 </footer>
